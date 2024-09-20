@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdj0ekidyndwg"]
+
+[ext_resource type="Texture2D" uid="uid://bvqto8eodl3k1" path="res://Components/Tilemap/Tileset1.png" id="1_4udvo"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a2781"]
+texture = ExtResource("1_4udvo")
+15:8/0 = 0
+15:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_20rwp"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_a2781")
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_20rwp")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(65540, 983041, 8, 65541, 983041, 8, 65542, 983041, 8, 65543, 983041, 8, 262152, 983041, 8, 262153, 983041, 8, 262154, 983041, 8, 262155, 983041, 8, 458758, 983041, 8, 458757, 983041, 8, 458756, 983041, 8, 458755, 983041, 8, 393221, 983041, 8, 393222, 983041, 8, 393223, 983041, 8)
