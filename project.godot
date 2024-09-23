@@ -14,10 +14,14 @@ config/name="MultiPlayer Platformer Intro"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ChangeBackground="*res://Utility/Scripts/change_background.gd"
+
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1600
+window/size/viewport_height=1200
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"

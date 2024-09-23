@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsrboysxtjjus"]
+
+[ext_resource type="Texture2D" uid="uid://gv1us8qnha44" path="res://Experiments/experiment level/Misty Field.png" id="1_k16v2"]
+[ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="2_tk8st"]
+[ext_resource type="Texture2D" uid="uid://c8bm8tqeqtqv7" path="res://Experiments/experiment level/inek.png" id="3_god7o"]
+[ext_resource type="Texture2D" uid="uid://tebwtp7537ij" path="res://Experiments/experiment level/inek 2.PNG" id="4_ivije"]
+[ext_resource type="FontFile" uid="uid://scjh5k4t8ch7" path="res://Utility/Fonts/Gowun_Batang,Jacquarda_Bastarda_9/Gowun_Batang/GowunBatang-Bold.ttf" id="5_cmkrx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmc21"]
+font = ExtResource("5_cmkrx")
+font_size = 64
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="experiment" type="Node2D"]
+
+[node name="MistyField" type="Sprite2D" parent="."]
+position = Vector2(808, 602)
+scale = Vector2(0.813, 0.8)
+texture = ExtResource("1_k16v2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MistyField"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MistyField/StaticBody2D"]
+polygon = PackedVector2Array(-1006.12, 581.044, -614.679, 535.714, -366.972, 486.264, 266.055, 436.813, 990.826, 288.462, 990.826, 745.879, -996.942, 745.879)
+
+[node name="Player" parent="." instance=ExtResource("2_tk8st")]
+position = Vector2(136, 1011)
+scale = Vector2(4, 4)
+max_hspeed = 400
+
+[node name="Inek" type="Sprite2D" parent="."]
+position = Vector2(1513, 1007)
+scale = Vector2(-0.447975, 0.406175)
+texture = ExtResource("3_god7o")
+
+[node name="Inek2" type="Sprite2D" parent="."]
+position = Vector2(39, 982)
+scale = Vector2(-0.27319, 0.227899)
+texture = ExtResource("4_ivije")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 773.0
+offset_bottom = 332.0
+text = "NEVER DULL IN THIS GARDEN
+ OF A DISTANT GOD
+
+FOR A MOMENT
+YOU REMEMBER 
+WHAT YOU NEVER HAD"
+label_settings = SubResource("LabelSettings_rmc21")
