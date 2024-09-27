@@ -1,4 +1,9 @@
 extends CharacterBody2D
+
+@export var bullet = preload("res://Components/Player/Bullet/bullet.tscn")
+@onready var muzzle : Marker2D = $Muzzle
+var muzzle_position
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var gravity := 1000
@@ -10,20 +15,22 @@ extends CharacterBody2D
 @export var jumpForce : int = 300
 @export var jump_hspeed := 1000
 
-enum playerState {Idle, Run, Jump}
+enum playerState {Idle, Run, Jump, Shoot}
 var current_state : playerState
 
 var character_sprite : Sprite2D
 
 func _ready() -> void:
 	current_state = playerState.Idle
+	muzzle_position = muzzle.position
 	
 func _physics_process(delta: float) -> void:
 	player_falling(delta)
 	player_idle(delta)
 	player_run(delta)
 	player_jump(delta)
-	
+	swap_muzzle_position()
+	player_shoot(delta)
 	move_and_slide()
 	
 	player_animations()
@@ -55,14 +62,37 @@ func player_jump(delta: float):
 		var direction = input_movement()
 		velocity.x += direction * jump_hspeed * delta
 		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+
+func player_shoot(delta: float):
+	var direction = input_movement()
+	
+	if direction != 0 and Input.is_action_just_pressed('shoot'):
 		
+		var bullet_instance = bullet.instantiate() as Node2D
+		bullet_instance.direction = direction
+		
+		bullet_instance.global_position = muzzle.global_position
+		get_parent().add_child(bullet_instance)
+		current_state = playerState.Shoot
+
+func swap_muzzle_position():
+	var direction = input_movement()
+	if direction > 0:
+		muzzle.position.x = muzzle_position.x
+	elif direction < 0:
+		muzzle.position.x = -muzzle_position.x
+
 func player_animations():
 	if current_state == playerState.Idle and is_on_floor():
 		animated_sprite_2d.play('idle')
-	elif current_state == playerState.Run and is_on_floor():
+	elif current_state == playerState.Run and animated_sprite_2d.animation != 'run_shoot':
 		animated_sprite_2d.play('run')
-	elif current_state == playerState.Jump or !is_on_floor():
+	elif current_state == playerState.Jump:
 		animated_sprite_2d.play('jump')
+	elif current_state == playerState.Shoot:
+		animated_sprite_2d.play('run_shoot')
+	
+	
 
 func input_movement():
 	var direction : float = Input.get_axis('move_left','move_right')
