@@ -1,55 +1,84 @@
 [gd_scene load_steps=7 format=3 uid="uid://bsrboysxtjjus"]
 
-[ext_resource type="Texture2D" uid="uid://gv1us8qnha44" path="res://Experiments/experiment level/Misty Field.png" id="1_k16v2"]
+[ext_resource type="Script" path="res://Experiments/experiment level/PoemManager.gd" id="1_tqmpr"]
+[ext_resource type="PackedScene" uid="uid://cgjowjcouphkh" path="res://Experiments/levels/misty_field.tscn" id="2_8ue1r"]
 [ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="2_tk8st"]
-[ext_resource type="Texture2D" uid="uid://c8bm8tqeqtqv7" path="res://Experiments/experiment level/inek.png" id="3_god7o"]
-[ext_resource type="Texture2D" uid="uid://tebwtp7537ij" path="res://Experiments/experiment level/inek 2.PNG" id="4_ivije"]
-[ext_resource type="FontFile" uid="uid://scjh5k4t8ch7" path="res://Utility/Fonts/Gowun_Batang,Jacquarda_Bastarda_9/Gowun_Batang/GowunBatang-Bold.ttf" id="5_cmkrx"]
+[ext_resource type="Texture2D" uid="uid://dh32llcv3uegl" path="res://Experiments/experiment level/broken branch.png" id="4_f0mib"]
+[ext_resource type="LabelSettings" uid="uid://cqvtp771n5fa4" path="res://Experiments/experiment level/font resource.tres" id="4_r0lvl"]
+[ext_resource type="Texture2D" uid="uid://g6uxa3vgc4yt" path="res://Experiments/experiment level/two slabs.png" id="6_lnr12"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_rmc21"]
-font = ExtResource("5_cmkrx")
-font_size = 64
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
+[node name="FlatPoem" type="Node2D"]
+script = ExtResource("1_tqmpr")
 
-[node name="experiment" type="Node2D"]
+[node name="MistyField" parent="." instance=ExtResource("2_8ue1r")]
 
-[node name="MistyField" type="Sprite2D" parent="."]
-position = Vector2(808, 602)
-scale = Vector2(0.813, 0.8)
-texture = ExtResource("1_k16v2")
+[node name="Two Slabs" type="Sprite2D" parent="."]
+position = Vector2(4596, 607)
+scale = Vector2(0.8185, 0.8)
+texture = ExtResource("6_lnr12")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="MistyField"]
+[node name="Player" parent="Two Slabs" instance=ExtResource("2_tk8st")]
+position = Vector2(-591.325, 251.25)
+scale = Vector2(4.88699, 5)
+gravity = 1500
+speed = 1300
+max_hspeed = 700
+slowdown_speed = 100
+jumpForce = 1200
+jump_hspeed = 2000
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MistyField/StaticBody2D"]
-polygon = PackedVector2Array(-1006.12, 581.044, -614.679, 535.714, -366.972, 486.264, 266.055, 436.813, 990.826, 288.462, 990.826, 745.879, -996.942, 745.879)
+[node name="StaticBody2D" type="StaticBody2D" parent="Two Slabs"]
 
-[node name="Player" parent="." instance=ExtResource("2_tk8st")]
-position = Vector2(136, 1011)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Two Slabs/StaticBody2D"]
+position = Vector2(-0.000298278, 0)
+polygon = PackedVector2Array(-684.178, 290, -576.664, 290, -87.9653, 300, -78.1918, 780, -674.405, 790)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Two Slabs/StaticBody2D"]
+polygon = PackedVector2Array(117.287, -180, 420.281, -180, 439.829, 1080, 127.061, 1070)
+
+[node name="Label" type="Label" parent="Two Slabs"]
+offset_left = -996.946
+offset_top = -710.0
+offset_right = -167.946
+offset_bottom = -389.0
+text = "never dull in this garden
+of a feeble god"
+label_settings = ExtResource("4_r0lvl")
+horizontal_alignment = 2
+
+[node name="BrokenBranch" type="Sprite2D" parent="."]
+position = Vector2(2900, 599)
+scale = Vector2(0.828, 0.798667)
+texture = ExtResource("4_f0mib")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BrokenBranch"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BrokenBranch/StaticBody2D"]
+polygon = PackedVector2Array(-990.338, 209.099, -922.706, 229.132, -758.454, 148.998, -574.879, 58.8481, -391.304, 8.76459, -159.42, 38.8147, 14.4927, 88.8981, 53.1401, 118.948, 207.729, -41.3188, 516.908, -241.653, 748.792, -341.82, 652.174, -231.636, 1048.31, 409.432, 1125.6, 609.766, 1106.28, 1010.43, -1009.66, 930.3, -1019.32, 219.115)
+
+[node name="Label" type="Label" parent="BrokenBranch"]
+offset_left = -169.082
+offset_top = 529.633
+offset_right = 946.918
+offset_bottom = 742.633
+text = "broken but standing
+possibly stronger than ever before"
+label_settings = ExtResource("4_r0lvl")
+
+[node name="Player2" parent="." instance=ExtResource("2_tk8st")]
+position = Vector2(2176, 704)
 scale = Vector2(4, 4)
-max_hspeed = 400
+gravity = 1500
+speed = 1300
+max_hspeed = 700
+slowdown_speed = 100
+jumpForce = 1200
+jump_hspeed = 2000
 
-[node name="Inek" type="Sprite2D" parent="."]
-position = Vector2(1513, 1007)
-scale = Vector2(-0.447975, 0.406175)
-texture = ExtResource("3_god7o")
+[node name="Cameras" type="Node2D" parent="."]
 
-[node name="Inek2" type="Sprite2D" parent="."]
-position = Vector2(39, 982)
-scale = Vector2(-0.27319, 0.227899)
-texture = ExtResource("4_ivije")
+[node name="Camera1" type="Camera2D" parent="Cameras"]
+position = Vector2(800, 600)
+position_smoothing_enabled = true
 
-[node name="Label" type="Label" parent="."]
-offset_right = 773.0
-offset_bottom = 332.0
-text = "NEVER DULL IN THIS GARDEN
- OF A DISTANT GOD
-
-FOR A MOMENT
-YOU REMEMBER 
-WHAT YOU NEVER HAD"
-label_settings = SubResource("LabelSettings_rmc21")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1599.0
-offset_bottom = 1198.0
+[node name="Node2D" type="Node2D" parent="."]

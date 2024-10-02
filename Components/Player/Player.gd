@@ -49,7 +49,8 @@ func player_run(delta: float):
 		velocity.x += direction * speed * delta
 		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 	else:
-		velocity.x = move_toward(velocity.x, 0, slowdown_speed * delta)
+		#velocity.x = move_toward(velocity.x, 0, slowdown_speed * delta)
+		velocity.x = 0
 	if direction != 0:
 		current_state = playerState.Run
 		animated_sprite_2d.flip_h = false if direction > 0 else true
@@ -60,7 +61,9 @@ func player_jump(delta: float):
 		current_state = playerState.Jump
 	if !is_on_floor() and current_state== playerState.Jump:
 		var direction = input_movement()
-		velocity.x += direction * jump_hspeed * delta
+		#velocity.x += direction * jump_hspeed * delta
+		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+		velocity.x += direction * speed * delta
 		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 
 func player_shoot(delta: float):
@@ -85,11 +88,11 @@ func swap_muzzle_position():
 func player_animations():
 	if current_state == playerState.Idle and is_on_floor():
 		animated_sprite_2d.play('idle')
-	elif current_state == playerState.Run and animated_sprite_2d.animation != 'run_shoot':
+	elif current_state == playerState.Run and animated_sprite_2d.animation != 'run_shoot' and is_on_floor():
 		animated_sprite_2d.play('run')
-	elif current_state == playerState.Jump:
+	elif current_state == playerState.Jump or !is_on_floor():
 		animated_sprite_2d.play('jump')
-	elif current_state == playerState.Shoot:
+	elif current_state == playerState.Shoot :
 		animated_sprite_2d.play('run_shoot')
 	
 	
@@ -97,3 +100,8 @@ func player_animations():
 func input_movement():
 	var direction : float = Input.get_axis('move_left','move_right')
 	return direction
+
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group('Enemy'):
+		print('Enemy entered')
