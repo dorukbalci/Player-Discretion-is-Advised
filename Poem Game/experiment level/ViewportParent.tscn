@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crhskkx66oegr"]
 
 [ext_resource type="Shader" path="res://Utility/Shaders/DitherShader/DitherShader.gdshader" id="1_i8u6f"]
-[ext_resource type="PackedScene" uid="uid://bsrboysxtjjus" path="res://Experiments/experiment level/experimentlevel.tscn" id="2_jv6g8"]
+[ext_resource type="PackedScene" uid="uid://bsrboysxtjjus" path="res://Poem Game/experiment level/Poem Game.tscn" id="2_jv6g8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s00y4"]
 shader = ExtResource("1_i8u6f")

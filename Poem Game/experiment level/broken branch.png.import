@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6uxa3vgc4yt"
-path="res://.godot/imported/two slabs.png-ea3684b898481862761a309bea3aa719.ctex"
+uid="uid://dh32llcv3uegl"
+path="res://.godot/imported/broken branch.png-1701f21aa4c573b99f00789fa52304d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Experiments/experiment level/two slabs.png"
-dest_files=["res://.godot/imported/two slabs.png-ea3684b898481862761a309bea3aa719.ctex"]
+source_file="res://Poem Game/experiment level/broken branch.png"
+dest_files=["res://.godot/imported/broken branch.png-1701f21aa4c573b99f00789fa52304d3.ctex"]
 
 [params]
 

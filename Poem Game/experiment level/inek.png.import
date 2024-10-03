@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gv1us8qnha44"
-path="res://.godot/imported/Misty Field.png-2344aabecbc33f241517495a867db44a.ctex"
+uid="uid://c8bm8tqeqtqv7"
+path="res://.godot/imported/inek.png-bc08300334b88be354a49114633a8a87.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Experiments/experiment level/Misty Field.png"
-dest_files=["res://.godot/imported/Misty Field.png-2344aabecbc33f241517495a867db44a.ctex"]
+source_file="res://Poem Game/experiment level/inek.png"
+dest_files=["res://.godot/imported/inek.png-bc08300334b88be354a49114633a8a87.ctex"]
 
 [params]
 

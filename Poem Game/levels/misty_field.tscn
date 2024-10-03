@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgjowjcouphkh"]
 
-[ext_resource type="Texture2D" uid="uid://gv1us8qnha44" path="res://Experiments/experiment level/Misty Field.png" id="1_tt47j"]
+[ext_resource type="Texture2D" uid="uid://gv1us8qnha44" path="res://Poem Game/experiment level/Misty Field.png" id="1_tt47j"]
 [ext_resource type="FontFile" uid="uid://scjh5k4t8ch7" path="res://Utility/Fonts/Gowun_Batang,Jacquarda_Bastarda_9/Gowun_Batang/GowunBatang-Bold.ttf" id="2_mdwbm"]
 [ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="3_8qjf0"]
 

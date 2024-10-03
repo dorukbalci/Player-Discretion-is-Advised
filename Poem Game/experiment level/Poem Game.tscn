@@ -1,23 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://bsrboysxtjjus"]
 
-[ext_resource type="Script" path="res://Experiments/experiment level/PoemManager.gd" id="1_tqmpr"]
-[ext_resource type="PackedScene" uid="uid://cgjowjcouphkh" path="res://Experiments/levels/misty_field.tscn" id="2_8ue1r"]
-[ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="2_tk8st"]
-[ext_resource type="Texture2D" uid="uid://dh32llcv3uegl" path="res://Experiments/experiment level/broken branch.png" id="4_f0mib"]
-[ext_resource type="LabelSettings" uid="uid://cqvtp771n5fa4" path="res://Experiments/experiment level/font resource.tres" id="4_r0lvl"]
-[ext_resource type="Texture2D" uid="uid://g6uxa3vgc4yt" path="res://Experiments/experiment level/two slabs.png" id="6_lnr12"]
+[ext_resource type="Script" path="res://Poem Game/experiment level/PoemManager.gd" id="1_vyo8g"]
+[ext_resource type="PackedScene" uid="uid://cgjowjcouphkh" path="res://Poem Game/levels/misty_field.tscn" id="2_gk8le"]
+[ext_resource type="Texture2D" uid="uid://g6uxa3vgc4yt" path="res://Poem Game/experiment level/two slabs.png" id="3_6da0f"]
+[ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="4_4h307"]
+[ext_resource type="LabelSettings" uid="uid://cqvtp771n5fa4" path="res://Poem Game/experiment level/font resource.tres" id="5_luf5f"]
+[ext_resource type="Texture2D" uid="uid://dh32llcv3uegl" path="res://Poem Game/experiment level/broken branch.png" id="6_jrl7e"]
 
 [node name="FlatPoem" type="Node2D"]
-script = ExtResource("1_tqmpr")
+script = ExtResource("1_vyo8g")
 
-[node name="MistyField" parent="." instance=ExtResource("2_8ue1r")]
+[node name="MistyField" parent="." instance=ExtResource("2_gk8le")]
 
 [node name="Two Slabs" type="Sprite2D" parent="."]
 position = Vector2(4596, 607)
 scale = Vector2(0.8185, 0.8)
-texture = ExtResource("6_lnr12")
+texture = ExtResource("3_6da0f")
 
-[node name="Player" parent="Two Slabs" instance=ExtResource("2_tk8st")]
+[node name="Player" parent="Two Slabs" instance=ExtResource("4_4h307")]
 position = Vector2(-591.325, 251.25)
 scale = Vector2(4.88699, 5)
 gravity = 1500
@@ -43,13 +43,13 @@ offset_right = -167.946
 offset_bottom = -389.0
 text = "never dull in this garden
 of a feeble god"
-label_settings = ExtResource("4_r0lvl")
+label_settings = ExtResource("5_luf5f")
 horizontal_alignment = 2
 
 [node name="BrokenBranch" type="Sprite2D" parent="."]
 position = Vector2(2900, 599)
 scale = Vector2(0.828, 0.798667)
-texture = ExtResource("4_f0mib")
+texture = ExtResource("6_jrl7e")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BrokenBranch"]
 
@@ -63,9 +63,9 @@ offset_right = 946.918
 offset_bottom = 742.633
 text = "broken but standing
 possibly stronger than ever before"
-label_settings = ExtResource("4_r0lvl")
+label_settings = ExtResource("5_luf5f")
 
-[node name="Player2" parent="." instance=ExtResource("2_tk8st")]
+[node name="Player2" parent="." instance=ExtResource("4_4h307")]
 position = Vector2(2176, 704)
 scale = Vector2(4, 4)
 gravity = 1500
