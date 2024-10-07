@@ -2,83 +2,41 @@
 
 [ext_resource type="Script" path="res://Poem Game/experiment level/PoemManager.gd" id="1_vyo8g"]
 [ext_resource type="PackedScene" uid="uid://cgjowjcouphkh" path="res://Poem Game/levels/misty_field.tscn" id="2_gk8le"]
-[ext_resource type="Texture2D" uid="uid://g6uxa3vgc4yt" path="res://Poem Game/experiment level/two slabs.png" id="3_6da0f"]
-[ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="4_4h307"]
-[ext_resource type="LabelSettings" uid="uid://cqvtp771n5fa4" path="res://Poem Game/experiment level/font resource.tres" id="5_luf5f"]
-[ext_resource type="Texture2D" uid="uid://dh32llcv3uegl" path="res://Poem Game/experiment level/broken branch.png" id="6_jrl7e"]
+[ext_resource type="PackedScene" uid="uid://cqrsdf3t7rai7" path="res://Poem Game/levels/broken_branch.tscn" id="3_koil4"]
+[ext_resource type="PackedScene" uid="uid://8ivpmr8u6s84" path="res://Poem Game/levels/two_slabs.tscn" id="4_dw5xt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxtbj"]
+size = Vector2(298, 1226)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skjgu"]
+size = Vector2(333, 1349)
 
 [node name="FlatPoem" type="Node2D"]
 script = ExtResource("1_vyo8g")
+scenes = Array[PackedScene]([ExtResource("2_gk8le"), ExtResource("3_koil4"), ExtResource("4_dw5xt")])
 
-[node name="MistyField" parent="." instance=ExtResource("2_gk8le")]
+[node name="SceneParent" type="Node2D" parent="."]
 
-[node name="Two Slabs" type="Sprite2D" parent="."]
-position = Vector2(4596, 607)
-scale = Vector2(0.8185, 0.8)
-texture = ExtResource("3_6da0f")
-
-[node name="Player" parent="Two Slabs" instance=ExtResource("4_4h307")]
-position = Vector2(-591.325, 251.25)
-scale = Vector2(4.88699, 5)
-gravity = 1500
-speed = 1300
-max_hspeed = 700
-slowdown_speed = 100
-jumpForce = 1200
-jump_hspeed = 2000
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Two Slabs"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Two Slabs/StaticBody2D"]
-position = Vector2(-0.000298278, 0)
-polygon = PackedVector2Array(-684.178, 290, -576.664, 290, -87.9653, 300, -78.1918, 780, -674.405, 790)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Two Slabs/StaticBody2D"]
-polygon = PackedVector2Array(117.287, -180, 420.281, -180, 439.829, 1080, 127.061, 1070)
-
-[node name="Label" type="Label" parent="Two Slabs"]
-offset_left = -996.946
-offset_top = -710.0
-offset_right = -167.946
-offset_bottom = -389.0
-text = "never dull in this garden
-of a feeble god"
-label_settings = ExtResource("5_luf5f")
-horizontal_alignment = 2
-
-[node name="BrokenBranch" type="Sprite2D" parent="."]
-position = Vector2(2900, 599)
-scale = Vector2(0.828, 0.798667)
-texture = ExtResource("6_jrl7e")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="BrokenBranch"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BrokenBranch/StaticBody2D"]
-polygon = PackedVector2Array(-990.338, 209.099, -922.706, 229.132, -758.454, 148.998, -574.879, 58.8481, -391.304, 8.76459, -159.42, 38.8147, 14.4927, 88.8981, 53.1401, 118.948, 207.729, -41.3188, 516.908, -241.653, 748.792, -341.82, 652.174, -231.636, 1048.31, 409.432, 1125.6, 609.766, 1106.28, 1010.43, -1009.66, 930.3, -1019.32, 219.115)
-
-[node name="Label" type="Label" parent="BrokenBranch"]
-offset_left = -169.082
-offset_top = 529.633
-offset_right = 946.918
-offset_bottom = 742.633
-text = "broken but standing
-possibly stronger than ever before"
-label_settings = ExtResource("5_luf5f")
-
-[node name="Player2" parent="." instance=ExtResource("4_4h307")]
-position = Vector2(2176, 704)
-scale = Vector2(4, 4)
-gravity = 1500
-speed = 1300
-max_hspeed = 700
-slowdown_speed = 100
-jumpForce = 1200
-jump_hspeed = 2000
-
-[node name="Cameras" type="Node2D" parent="."]
-
-[node name="Camera1" type="Camera2D" parent="Cameras"]
+[node name="Camera1" type="Camera2D" parent="."]
 position = Vector2(800, 600)
 position_smoothing_enabled = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="NextLevel" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevel"]
+position = Vector2(1744, 600)
+shape = SubResource("RectangleShape2D_vxtbj")
+
+[node name="Previous Level" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Previous Level"]
+position = Vector2(-166.5, 669.5)
+shape = SubResource("RectangleShape2D_skjgu")
+
+[connection signal="body_entered" from="NextLevel" to="." method="_on_next_level_body_entered"]
+[connection signal="body_shape_entered" from="NextLevel" to="." method="_on_next_level_body_shape_entered"]
+[connection signal="body_entered" from="Previous Level" to="." method="_on_previous_level_body_entered"]

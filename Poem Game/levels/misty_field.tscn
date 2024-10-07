@@ -18,7 +18,7 @@ texture = ExtResource("1_tt47j")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-1006.12, 581.044, -614.679, 535.714, -366.972, 486.264, 266.055, 436.813, 990.826, 288.462, 990.826, 745.879, -996.942, 745.879)
+polygon = PackedVector2Array(-1006.12, 581.044, -614.679, 535.714, -366.972, 486.264, 266.055, 436.813, 993.85, 297.5, 1003.69, 757.5, -996.942, 745.879)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -964.33

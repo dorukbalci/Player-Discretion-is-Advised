@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://8ivpmr8u6s84"]
+
+[ext_resource type="Texture2D" uid="uid://g6uxa3vgc4yt" path="res://Poem Game/experiment level/two slabs.png" id="1_0n1rb"]
+[ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/player.tscn" id="2_y1vnu"]
+[ext_resource type="LabelSettings" uid="uid://cqvtp771n5fa4" path="res://Poem Game/experiment level/font resource.tres" id="3_7aued"]
+
+[node name="Two Slabs" type="Sprite2D"]
+position = Vector2(816, 600)
+scale = Vector2(0.8185, 0.8)
+texture = ExtResource("1_0n1rb")
+
+[node name="Player" parent="." instance=ExtResource("2_y1vnu")]
+position = Vector2(-591.325, 251.25)
+scale = Vector2(4.88699, 5)
+gravity = 1500
+speed = 1300
+max_hspeed = 700
+slowdown_speed = 100
+jumpForce = 1200
+jump_hspeed = 2000
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-0.000298278, 0)
+polygon = PackedVector2Array(-684.178, 290, -576.664, 290, -87.9653, 300, -78.1918, 780, -674.405, 790)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(117.287, -180, 420.281, -180, 439.829, 1080, 127.061, 1070)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -996.946
+offset_top = -710.0
+offset_right = -167.946
+offset_bottom = -389.0
+text = "never dull in this garden
+of a feeble god"
+label_settings = ExtResource("3_7aued")
+horizontal_alignment = 2
