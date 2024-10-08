@@ -1,0 +1,58 @@
+{
+	"categories": [
+		{
+			"uuid": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"title": "Task",
+			"color": "569eff"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "cdcaaecf-1371-4227-9b8d-82cbad21f4d7",
+			"title": "Todo",
+			"tasks": [
+				"b04860f5-ea80-41c0-a2d3-82c169282235",
+				"8139166f-9b5a-402d-9fbb-762f2e7b7f05"
+			]
+		},
+		{
+			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
+			"title": "Doing",
+			"tasks": []
+		},
+		{
+			"uuid": "fc07b160-cba8-4420-baab-dbfabe5c9367",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "b04860f5-ea80-41c0-a2d3-82c169282235",
+			"title": "Make Player 2",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "8139166f-9b5a-402d-9fbb-762f2e7b7f05",
+			"title": "New task",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"cdcaaecf-1371-4227-9b8d-82cbad21f4d7"
+			],
+			[
+				"d2d983cc-ead1-4593-b9c8-4aba43d81dff"
+			],
+			[
+				"fc07b160-cba8-4420-baab-dbfabe5c9367"
+			]
+		]
+	}
+}
