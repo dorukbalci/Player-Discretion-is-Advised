@@ -1,4 +1,5 @@
 extends CharacterBody2D
+@export var playerID = 0;
 
 @export var bullet = preload("res://Components/Player/Bullet/bullet.tscn")
 @onready var muzzle : Marker2D = $Muzzle
@@ -14,6 +15,8 @@ var muzzle_position
 
 @export var jumpForce : int = 300
 @export var jump_hspeed := 1000
+
+
 
 enum playerState {Idle, Run, Jump, Shoot}
 var current_state : playerState
@@ -56,7 +59,7 @@ func player_run(delta: float):
 		animated_sprite_2d.flip_h = false if direction > 0 else true
 		
 func player_jump(delta: float):
-	if Input.is_action_just_pressed('jump') and is_on_floor():
+	if Input.is_action_just_pressed('jump_%s' % playerID) and is_on_floor():
 		velocity.y = -jumpForce
 		current_state = playerState.Jump
 	if !is_on_floor() and current_state== playerState.Jump:
@@ -69,7 +72,7 @@ func player_jump(delta: float):
 func player_shoot(delta: float):
 	var direction = input_movement()
 	
-	if direction != 0 and Input.is_action_just_pressed('shoot'):
+	if direction != 0 and Input.is_action_just_pressed('shoot_%s' % playerID):
 		
 		var bullet_instance = bullet.instantiate() as Node2D
 		bullet_instance.direction = direction
@@ -98,7 +101,7 @@ func player_animations():
 	
 
 func input_movement():
-	var direction : float = Input.get_axis('move_left','move_right')
+	var direction : float = Input.get_axis('move_left_%s'% playerID,'move_right_%s' % playerID)
 	return direction
 
 

@@ -11,19 +11,24 @@
 			"uuid": "cdcaaecf-1371-4227-9b8d-82cbad21f4d7",
 			"title": "Todo",
 			"tasks": [
-				"b04860f5-ea80-41c0-a2d3-82c169282235",
-				"8139166f-9b5a-402d-9fbb-762f2e7b7f05"
+				"5226aeb9-5dd4-4de5-8204-4444bc92879c",
+				"093f3c9c-53e9-4364-b7fd-f3c22697d88b",
+				"863b2d50-3922-48ac-a810-19ea965ba00b"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"0418e90a-99fd-4096-87ed-69f3bc5b651b"
+			]
 		},
 		{
 			"uuid": "fc07b160-cba8-4420-baab-dbfabe5c9367",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"b04860f5-ea80-41c0-a2d3-82c169282235"
+			]
 		}
 	],
 	"tasks": [
@@ -35,8 +40,29 @@
 			"steps": []
 		},
 		{
-			"uuid": "8139166f-9b5a-402d-9fbb-762f2e7b7f05",
-			"title": "New task",
+			"uuid": "5226aeb9-5dd4-4de5-8204-4444bc92879c",
+			"title": "Apply Shaders",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "0418e90a-99fd-4096-87ed-69f3bc5b651b",
+			"title": "Physical Bullets (mosa lina style)",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "093f3c9c-53e9-4364-b7fd-f3c22697d88b",
+			"title": "Pause Menu",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "863b2d50-3922-48ac-a810-19ea965ba00b",
+			"title": "Drawing Level",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
