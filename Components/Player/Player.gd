@@ -5,6 +5,9 @@ extends CharacterBody2D
 @onready var muzzle : Marker2D = $Muzzle
 var muzzle_position
 
+@export var p_bullet_scene: PackedScene  # Drag the Bullet2D scene into this slot
+@export var shoot_speed: float = 500.0
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var gravity := 1000
@@ -33,7 +36,8 @@ func _physics_process(delta: float) -> void:
 	player_run(delta)
 	player_jump(delta)
 	swap_muzzle_position()
-	player_shoot(delta)
+	#player_shoot(delta)
+	p_shoot(delta)
 	move_and_slide()
 	
 	player_animations()
@@ -70,6 +74,7 @@ func player_jump(delta: float):
 		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 
 func player_shoot(delta: float):
+	
 	var direction = input_movement()
 	
 	if direction != 0 and Input.is_action_just_pressed('shoot_%s' % playerID):
@@ -80,6 +85,21 @@ func player_shoot(delta: float):
 		bullet_instance.global_position = muzzle.global_position
 		get_parent().add_child(bullet_instance)
 		current_state = playerState.Shoot
+
+func p_shoot(delta: float):
+	if Input.is_action_just_pressed('shoot_%s' % playerID):
+		var direction = input_movement()
+		var bullet = p_bullet_scene.instantiate() as RigidBody2D
+	
+	# Set bullet's position to the player's position
+		bullet.position = $Muzzle.global_position
+	# Set bullet rotation to the player's current rotation
+		#bullet.rotation = global_rotation * direction
+		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * 400 
+		
+	
+	# Add the bullet to the current scene
+		get_tree().current_scene.add_child(bullet)
 
 func swap_muzzle_position():
 	var direction = input_movement()
@@ -97,13 +117,10 @@ func player_animations():
 		animated_sprite_2d.play('jump')
 	elif current_state == playerState.Shoot :
 		animated_sprite_2d.play('run_shoot')
-	
-	
 
 func input_movement():
 	var direction : float = Input.get_axis('move_left_%s'% playerID,'move_right_%s' % playerID)
 	return direction
-
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Enemy'):
