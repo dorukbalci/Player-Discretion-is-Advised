@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j01h8"]
 size = Vector2(12, 4)
 
-[node name="PhysicalBullet" type="RigidBody2D"]
+[node name="PhysicalBullet" type="RigidBody2D" groups=["Bullet"]]
+collision_layer = 5
 script = ExtResource("1_mxlsi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

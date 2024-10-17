@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var muzzle : Marker2D = $Muzzle
 var muzzle_position
 
-@export var p_bullet_scene: PackedScene  # Drag the Bullet2D scene into this slot
+@export var p_bullet_scene: PackedScene  
 @export var shoot_speed: float = 500.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -19,7 +19,10 @@ var muzzle_position
 @export var jumpForce : int = 300
 @export var jump_hspeed := 1000
 
-
+@export var max_health:=100
+@export var min_health:=0
+var current_health = 100
+@onready var healthbar = $HealthBar
 
 enum playerState {Idle, Run, Jump, Shoot}
 var current_state : playerState
@@ -90,15 +93,9 @@ func p_shoot(delta: float):
 	if Input.is_action_just_pressed('shoot_%s' % playerID):
 		var direction = input_movement()
 		var bullet = p_bullet_scene.instantiate() as RigidBody2D
-	
-	# Set bullet's position to the player's position
+		bullet.add_to_group('Bullet_%s' % playerID)
 		bullet.position = $Muzzle.global_position
-	# Set bullet rotation to the player's current rotation
-		#bullet.rotation = global_rotation * direction
 		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * 400 
-		
-	
-	# Add the bullet to the current scene
 		get_tree().current_scene.add_child(bullet)
 
 func swap_muzzle_position():
@@ -123,5 +120,12 @@ func input_movement():
 	return direction
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group('Enemy'):
-		print('Enemy entered')
+	if body.is_in_group('Bullet') && !body.is_in_group('Bullet_%s'%playerID):
+		
+		update_health(-20)
+		print('Bullet Entered')
+
+func update_health(change : int):
+	current_health += change
+	healthbar.value = current_health
+	pass

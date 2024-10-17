@@ -279,4 +279,11 @@ position = Vector2(0, -19)
 shape = SubResource("CapsuleShape2D_ntqhn")
 debug_color = Color(0.717509, 0.278075, 0.662513, 0.42)
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -17.0
+offset_top = -45.0
+offset_right = 17.0
+offset_bottom = -41.0
+show_percentage = false
+
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

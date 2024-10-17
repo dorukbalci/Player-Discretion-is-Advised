@@ -2,6 +2,7 @@ extends RigidBody2D
 
 @export var speed: float = 500.0
 @export var life_time: float = 2.0  # Time in seconds
+@export var damage:= 20
 
 var time_alive: float = 0.0
 var bullet_rotation

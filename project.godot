@@ -33,6 +33,10 @@ enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
 [global_group]
 
 Player=""
+Damage=""
+Bullet_0=""
+Bullet_1=""
+Bullet=""
 
 [input]
 
