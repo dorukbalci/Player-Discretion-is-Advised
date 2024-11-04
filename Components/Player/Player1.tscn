@@ -251,7 +251,7 @@ height = 38.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ntqhn"]
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player", "Player1"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_kxsxc")

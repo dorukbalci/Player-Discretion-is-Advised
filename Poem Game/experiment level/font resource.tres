@@ -1,9 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cqvtp771n5fa4"]
-
-[ext_resource type="FontFile" uid="uid://scjh5k4t8ch7" path="res://Utility/Fonts/Gowun_Batang,Jacquarda_Bastarda_9/Gowun_Batang/GowunBatang-Bold.ttf" id="1_3o1ht"]
-
-[resource]
-font = ExtResource("1_3o1ht")
-font_size = 72
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)

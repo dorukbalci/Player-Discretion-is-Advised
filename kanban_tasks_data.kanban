@@ -11,25 +11,21 @@
 			"uuid": "cdcaaecf-1371-4227-9b8d-82cbad21f4d7",
 			"title": "Todo",
 			"tasks": [
-				"5226aeb9-5dd4-4de5-8204-4444bc92879c",
-				"093f3c9c-53e9-4364-b7fd-f3c22697d88b",
-				"863b2d50-3922-48ac-a810-19ea965ba00b",
-				"6e725009-2120-439e-a64f-cb69a13e5e30"
+				"093f3c9c-53e9-4364-b7fd-f3c22697d88b"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
-			"tasks": [
-				"3e2044eb-21e1-4ef3-af7b-910af8704aca"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "fc07b160-cba8-4420-baab-dbfabe5c9367",
 			"title": "Done",
 			"tasks": [
 				"b04860f5-ea80-41c0-a2d3-82c169282235",
-				"0418e90a-99fd-4096-87ed-69f3bc5b651b"
+				"0418e90a-99fd-4096-87ed-69f3bc5b651b",
+				"3e2044eb-21e1-4ef3-af7b-910af8704aca"
 			]
 		}
 	],
@@ -37,13 +33,6 @@
 		{
 			"uuid": "b04860f5-ea80-41c0-a2d3-82c169282235",
 			"title": "Make Player 2",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
-			"uuid": "5226aeb9-5dd4-4de5-8204-4444bc92879c",
-			"title": "Apply Shaders",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
@@ -63,22 +52,8 @@
 			"steps": []
 		},
 		{
-			"uuid": "863b2d50-3922-48ac-a810-19ea965ba00b",
-			"title": "Drawing Level",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
 			"uuid": "3e2044eb-21e1-4ef3-af7b-910af8704aca",
 			"title": "Health Bar",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
-			"uuid": "6e725009-2120-439e-a64f-cb69a13e5e30",
-			"title": "Refactoring",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []

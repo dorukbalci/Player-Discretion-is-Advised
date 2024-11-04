@@ -1,15 +1,18 @@
 extends CharacterBody2D
+#Set Player
 @export var playerID = 0;
 
 @export var bullet = preload("res://Components/Player/Bullet/bullet.tscn")
 @onready var muzzle : Marker2D = $Muzzle
 var muzzle_position
 
+#Physical Bullet
 @export var p_bullet_scene: PackedScene  
 @export var shoot_speed: float = 500.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+#Probably should be a universal variable
 @export var gravity := 1000
 
 @export var speed : int = 400
