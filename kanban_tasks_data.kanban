@@ -11,7 +11,10 @@
 			"uuid": "cdcaaecf-1371-4227-9b8d-82cbad21f4d7",
 			"title": "Todo",
 			"tasks": [
-				"093f3c9c-53e9-4364-b7fd-f3c22697d88b"
+				"093f3c9c-53e9-4364-b7fd-f3c22697d88b",
+				"e691cd72-78a0-4338-880d-bc58e4815867",
+				"980167a8-4605-477d-957d-948dffed4a04",
+				"e4b3167c-17ba-46d8-b5f6-e58cd1c4724e"
 			]
 		},
 		{
@@ -54,6 +57,27 @@
 		{
 			"uuid": "3e2044eb-21e1-4ef3-af7b-910af8704aca",
 			"title": "Health Bar",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "e691cd72-78a0-4338-880d-bc58e4815867",
+			"title": "Player Die",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "980167a8-4605-477d-957d-948dffed4a04",
+			"title": "Score",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "e4b3167c-17ba-46d8-b5f6-e58cd1c4724e",
+			"title": "Pause and Rule Menu",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []

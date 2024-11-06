@@ -45,8 +45,8 @@ func _physics_process(delta: float) -> void:
 	#player_shoot(delta)
 	p_shoot(delta)
 	move_and_slide()
-	
 	player_animations()
+	die(delta)
 
 func player_falling(delta: float):
 	if not is_on_floor():
@@ -124,11 +124,16 @@ func input_movement():
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Bullet') && !body.is_in_group('Bullet_%s'%playerID):
-		
+		body.queue_free()
 		update_health(-20)
 		print('Bullet Entered')
 
 func update_health(change : int):
+	
 	current_health += change
 	healthbar.value = current_health
 	pass
+
+func die(delta:float):
+	if current_health <= 0:
+		queue_free()
