@@ -1,6 +1,7 @@
 extends CharacterBody2D
 #Set Player
 @export var playerID = 0;
+var paused := false
 
 @export var bullet = preload("res://Components/Player/Bullet/bullet.tscn")
 @onready var muzzle : Marker2D = $Muzzle
@@ -37,16 +38,17 @@ func _ready() -> void:
 	muzzle_position = muzzle.position
 	
 func _physics_process(delta: float) -> void:
-	player_falling(delta)
-	player_idle(delta)
-	player_run(delta)
-	player_jump(delta)
-	swap_muzzle_position()
-	#player_shoot(delta)
-	p_shoot(delta)
-	move_and_slide()
-	player_animations()
-	die(delta)
+	if not paused:
+		player_falling(delta)
+		player_idle(delta)
+		player_run(delta)
+		player_jump(delta)
+		swap_muzzle_position()
+		#player_shoot(delta)
+		p_shoot(delta)
+		move_and_slide()
+		player_animations()
+		die(delta)
 
 func player_falling(delta: float):
 	if not is_on_floor():
