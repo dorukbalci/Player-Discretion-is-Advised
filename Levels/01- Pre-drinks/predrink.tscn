@@ -114,7 +114,8 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "1. Keep eyes open"
+text = "(Edit Me!)
+1. Keep eyes open"
 
 [node name="Pause Text" type="Label" parent="Canvas Layer"]
 visible = false
