@@ -29,7 +29,6 @@ size_flags_horizontal = 10
 text = "Player 2 Score:"
 
 [node name="Rule Panel" type="PanelContainer" parent="Canvas Layer"]
-visible = false
 offset_left = 258.0
 offset_top = 91.0
 offset_right = 839.0
@@ -146,6 +145,7 @@ wait_time = 2.0
 autostart = true
 
 [connection signal="pressed" from="Canvas Layer/Rule Panel/GridContainer/VBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Canvas Layer/Rule Panel/GridContainer/VBoxContainer2/Reset Rules" to="." method="_on_reset_rules_pressed"]
 [connection signal="pressed" from="Canvas Layer/Rule Panel/GridContainer/VBoxContainer2/Add Self" to="." method="_on_add_self_pressed"]
 [connection signal="pressed" from="Canvas Layer/Rule Panel/GridContainer/VBoxContainer2/Remove Player" to="." method="_on_remove_player_pressed"]
 [connection signal="value_changed" from="Canvas Layer/Rule Panel/GridContainer/VBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

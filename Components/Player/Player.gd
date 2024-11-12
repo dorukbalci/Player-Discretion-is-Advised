@@ -131,7 +131,6 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		print('Bullet Entered')
 
 func update_health(change : int):
-	
 	current_health += change
 	healthbar.value = current_health
 	pass

@@ -63,3 +63,7 @@ func _on_remove_player_pressed() -> void:
 func _on_start_pressed() -> void:
 	if Input.is_action_just_pressed('pause'):
 		$Players.get_tree().paused = false
+
+
+func _on_reset_rules_pressed() -> void:
+	pass # Replace with function body.

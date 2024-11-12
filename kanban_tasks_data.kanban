@@ -13,14 +13,17 @@
 			"tasks": [
 				"980167a8-4605-477d-957d-948dffed4a04",
 				"ae35c34e-e3dd-4b98-9adc-05dbd29e5b0f",
-				"42420cc6-edfd-4303-9bd7-d22e92c4c193"
+				"42420cc6-edfd-4303-9bd7-d22e92c4c193",
+				"eda4580d-00af-469a-af60-0a3baed3b3d5",
+				"e7c8fb1d-35c5-414d-b5b6-226b088298e3",
+				"5a0e77cc-9cad-419a-b725-84effa1de944",
+				"d6dc30bd-7fbf-42b8-8b5e-de5b376a587d"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
 			"tasks": [
-				"e4b3167c-17ba-46d8-b5f6-e58cd1c4724e",
 				"323863eb-9f3d-48f7-a336-09c897e83fee"
 			]
 		},
@@ -31,7 +34,8 @@
 				"b04860f5-ea80-41c0-a2d3-82c169282235",
 				"0418e90a-99fd-4096-87ed-69f3bc5b651b",
 				"3e2044eb-21e1-4ef3-af7b-910af8704aca",
-				"e691cd72-78a0-4338-880d-bc58e4815867"
+				"e691cd72-78a0-4338-880d-bc58e4815867",
+				"e4b3167c-17ba-46d8-b5f6-e58cd1c4724e"
 			]
 		}
 	],
@@ -73,7 +77,7 @@
 		},
 		{
 			"uuid": "e4b3167c-17ba-46d8-b5f6-e58cd1c4724e",
-			"title": "Pause and Rule Menu",
+			"title": "Pause State",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
@@ -95,6 +99,34 @@
 		{
 			"uuid": "42420cc6-edfd-4303-9bd7-d22e92c4c193",
 			"title": "Bullet Force",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "eda4580d-00af-469a-af60-0a3baed3b3d5",
+			"title": "Player Health",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "e7c8fb1d-35c5-414d-b5b6-226b088298e3",
+			"title": "Player Speed",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "5a0e77cc-9cad-419a-b725-84effa1de944",
+			"title": "Gravity Multiplier",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "d6dc30bd-7fbf-42b8-8b5e-de5b376a587d",
+			"title": "Keep Score",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
