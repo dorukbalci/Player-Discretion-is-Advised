@@ -4,6 +4,7 @@ extends CharacterBody2D
 var paused := false
 
 @export var bullet = preload("res://Components/Player/Bullet/bullet.tscn")
+@export var bullet_size = 1.0
 @onready var muzzle : Marker2D = $Muzzle
 var muzzle_position
 
@@ -61,10 +62,8 @@ func player_idle(delta: float):
 func player_run(delta: float):
 	var direction = input_movement()
 	if direction:
-		velocity.x += direction * speed * delta
-		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+		velocity.x = direction * speed * delta
 	else:
-		#velocity.x = move_toward(velocity.x, 0, slowdown_speed * delta)
 		velocity.x = 0
 	if direction != 0:
 		current_state = playerState.Run
@@ -79,7 +78,7 @@ func player_jump(delta: float):
 		#velocity.x += direction * jump_hspeed * delta
 		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 		velocity.x += direction * speed * delta
-		velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 
 func player_shoot(delta: float):
 	
@@ -90,6 +89,8 @@ func player_shoot(delta: float):
 		var bullet_instance = bullet.instantiate() as Node2D
 		bullet_instance.direction = direction
 		
+		bullet_instance.scale = bullet_size
+		
 		bullet_instance.global_position = muzzle.global_position
 		get_parent().add_child(bullet_instance)
 		current_state = playerState.Shoot
@@ -98,9 +99,12 @@ func p_shoot(delta: float):
 	if Input.is_action_just_pressed('shoot_%s' % playerID):
 		var direction = input_movement()
 		var bullet = p_bullet_scene.instantiate() as RigidBody2D
+		
 		bullet.add_to_group('Bullet_%s' % playerID)
 		bullet.position = $Muzzle.global_position
-		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * 400 
+		for child in bullet.get_children():
+			child.scale = Vector2.ONE * bullet_size
+		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * shoot_speed
 		get_tree().current_scene.add_child(bullet)
 
 func swap_muzzle_position():

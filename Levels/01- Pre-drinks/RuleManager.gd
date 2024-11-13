@@ -49,6 +49,7 @@ func _on_decrease_size_pressed() -> void:
 func _on_h_slider_value_changed(value: float) -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
+		player.speed = int(value)
 		player.max_hspeed = int(value)
 
 #REMOVE PLAYER
@@ -59,11 +60,44 @@ func _on_remove_player_pressed() -> void:
 		player1s[-1].queue_free()
 		player2s[-1].queue_free()
 
-
+#START GAME
 func _on_start_pressed() -> void:
-	if Input.is_action_just_pressed('pause'):
-		$Players.get_tree().paused = false
+	pass
 
 
 func _on_reset_rules_pressed() -> void:
-	pass # Replace with function body.
+	# Get the path of the current scene
+	var current_scene_path = get_tree().current_scene.scene_file_path
+	
+	# Reload the scene using change_scene_to_file
+	get_tree().change_scene_to_file(current_scene_path)
+
+
+func _on_increase_bullet_size_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.bullet_size += .2
+
+
+func _on_decrease_bullet_size_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.bullet_size -= .2
+
+
+func _on_bullet_force_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.shoot_speed = value
+
+
+func _on_decrease_jump_force_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.jumpForce -= 50
+
+
+func _on_increase_jump_force_2_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.jumpForce += 50
