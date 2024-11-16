@@ -79,6 +79,7 @@ func player_jump(delta: float):
 		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 		velocity.x += direction * speed * delta
 		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+		
 
 func player_shoot(delta: float):
 	
@@ -99,7 +100,7 @@ func p_shoot(delta: float):
 	if Input.is_action_just_pressed('shoot_%s' % playerID):
 		var direction = input_movement()
 		var bullet = p_bullet_scene.instantiate() as RigidBody2D
-		
+		bullet.gravity_scale = gravity / 1000
 		bullet.add_to_group('Bullet_%s' % playerID)
 		bullet.position = $Muzzle.global_position
 		for child in bullet.get_children():

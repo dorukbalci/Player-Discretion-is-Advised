@@ -5,6 +5,8 @@ extends Node2D
 @onready var ogPlayer1 := $Players/Player1
 @onready var ogPlayer2 := $Players/Player2
 
+var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBullet.tscn') 
+
 var paused = false
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
@@ -14,10 +16,13 @@ func _process(delta: float) -> void:
 	toggle_pause(delta)
 
 
+
+#PAUSE GAME
 func toggle_pause(delta : float):
 	if Input.is_action_just_pressed('pause'):
 		paused = !paused
 		$"Canvas Layer/Rule Panel".visible = !$"Canvas Layer/Rule Panel".visible
+		$"Canvas Layer/Rule BG".visible = !$"Canvas Layer/Rule BG".visible
 		$"Canvas Layer/Pause Text".visible =  !$"Canvas Layer/Pause Text".visible
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
@@ -64,7 +69,7 @@ func _on_remove_player_pressed() -> void:
 func _on_start_pressed() -> void:
 	pass
 
-
+#RESET RULES
 func _on_reset_rules_pressed() -> void:
 	# Get the path of the current scene
 	var current_scene_path = get_tree().current_scene.scene_file_path
@@ -72,32 +77,39 @@ func _on_reset_rules_pressed() -> void:
 	# Reload the scene using change_scene_to_file
 	get_tree().change_scene_to_file(current_scene_path)
 
-
+#INCREASE BULLET SIZE
 func _on_increase_bullet_size_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.bullet_size += .2
 
-
+#DECREASE BULLET SIZE
 func _on_decrease_bullet_size_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.bullet_size -= .2
 
-
+#CHANGE BULLET FORCE
 func _on_bullet_force_slider_value_changed(value: float) -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.shoot_speed = value
 
-
+#DECREASE JUMP FORCE
 func _on_decrease_jump_force_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.jumpForce -= 50
 
-
+#INCREASE JUMP FORCE
 func _on_increase_jump_force_2_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.jumpForce += 50
+
+#Change Gravity
+func _on_gravity_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.gravity = value
+	

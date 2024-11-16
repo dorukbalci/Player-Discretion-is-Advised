@@ -1,5 +1,8 @@
 extends Node
 
+var p1score = 0
+var p2score = 0
+var gravity_multiplier = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

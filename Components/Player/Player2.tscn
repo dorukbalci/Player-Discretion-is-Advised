@@ -259,6 +259,8 @@ collision_mask = 3
 script = ExtResource("1_aksus")
 playerID = 1
 p_bullet_scene = ExtResource("2_xsxvo")
+speed = 5000
+max_hspeed = 5000
 jumpForce = 600
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
