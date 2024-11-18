@@ -1,0 +1,58 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cvu8oy11tpw51"]
+
+[ext_resource type="FontFile" uid="uid://d2ydt5ckmu36h" path="res://Utility/Fonts/Steps-Mono-Thin.otf" id="1_of5r5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp5xa"]
+bg_color = Color(0.262745, 0.631373, 0.490196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.657528, 0.964633, 0.82905, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhj3"]
+bg_color = Color(0.195756, 0.495636, 0.381396, 1)
+border_color = Color(0.657528, 0.964633, 0.82905, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7q4i7"]
+bg_color = Color(0.0897017, 0.266207, 0.1992, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.712534, 0.519359, 0.388102, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp066"]
+bg_color = Color(0.0897017, 0.266207, 0.1992, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.712534, 0.519359, 0.388102, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[resource]
+Button/fonts/font = ExtResource("1_of5r5")
+Button/styles/normal = SubResource("StyleBoxFlat_bp5xa")
+Label/fonts/font = ExtResource("1_of5r5")
+Label/styles/normal = SubResource("StyleBoxFlat_qnhj3")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_7q4i7")
+TextEdit/fonts/font = ExtResource("1_of5r5")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_jp066")

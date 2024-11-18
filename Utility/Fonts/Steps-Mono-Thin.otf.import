@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b1fo1auk3ruk3"
-path="res://.godot/imported/JacquardaBastarda9-Regular.ttf-ec6fb313c6aa28ddfeb7cf9a74b7dc40.fontdata"
+uid="uid://d2ydt5ckmu36h"
+path="res://.godot/imported/Steps-Mono-Thin.otf-02cd67f64da0d4b1f26e22df473d0f8e.fontdata"
 
 [deps]
 
-source_file="res://Utility/Fonts/Jacquarda_Bastarda_9/JacquardaBastarda9-Regular.ttf"
-dest_files=["res://.godot/imported/JacquardaBastarda9-Regular.ttf-ec6fb313c6aa28ddfeb7cf9a74b7dc40.fontdata"]
+source_file="res://Utility/Fonts/Steps-Mono-Thin.otf"
+dest_files=["res://.godot/imported/Steps-Mono-Thin.otf-02cd67f64da0d4b1f26e22df473d0f8e.fontdata"]
 
 [params]
 

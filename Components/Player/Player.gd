@@ -24,6 +24,7 @@ var muzzle_position
 @export var jumpForce : int = 300
 @export var jump_hspeed := 1000
 
+var damageable = false
 @export var max_health:=100
 @export var min_health:=0
 var current_health = 100
@@ -31,7 +32,6 @@ var current_health = 100
 
 enum playerState {Idle, Run, Jump, Shoot}
 var current_state : playerState
-
 var character_sprite : Sprite2D
 
 func _ready() -> void:
@@ -136,9 +136,10 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		print('Bullet Entered')
 
 func update_health(change : int):
-	current_health += change
-	healthbar.value = current_health
-	pass
+	if damageable:
+		current_health += change
+		healthbar.value = current_health
+
 
 func die(delta:float):
 	if current_health <= 0:

@@ -12,19 +12,20 @@
 			"title": "Todo",
 			"tasks": [
 				"ae35c34e-e3dd-4b98-9adc-05dbd29e5b0f",
-				"d6dc30bd-7fbf-42b8-8b5e-de5b376a587d",
 				"9866ab77-1ee8-4fac-909b-f0d733c0eac6",
+				"eda4580d-00af-469a-af60-0a3baed3b3d5",
 				"d210372a-2608-4c30-9be8-804153659e38",
 				"3d48c697-1c43-482e-8c2a-a7fd14d62578",
-				"0186d1fc-6786-47d9-82d9-b51a846fe8c6"
+				"0186d1fc-6786-47d9-82d9-b51a846fe8c6",
+				"f4eda4cb-dc7b-49e2-890c-d1e3dfbc9953",
+				"7c1ebfe1-adeb-4695-b3c4-41784e57089e",
+				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
-			"tasks": [
-				"eda4580d-00af-469a-af60-0a3baed3b3d5"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "fc07b160-cba8-4420-baab-dbfabe5c9367",
@@ -38,6 +39,7 @@
 				"323863eb-9f3d-48f7-a336-09c897e83fee",
 				"e7c8fb1d-35c5-414d-b5b6-226b088298e3",
 				"e4b3167c-17ba-46d8-b5f6-e58cd1c4724e",
+				"d6dc30bd-7fbf-42b8-8b5e-de5b376a587d",
 				"5a0e77cc-9cad-419a-b725-84effa1de944"
 			]
 		}
@@ -151,6 +153,27 @@
 		{
 			"uuid": "0186d1fc-6786-47d9-82d9-b51a846fe8c6",
 			"title": "time between shooting",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "f4eda4cb-dc7b-49e2-890c-d1e3dfbc9953",
+			"title": "Keep The Rule Changes",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "7c1ebfe1-adeb-4695-b3c4-41784e57089e",
+			"title": "Reset Each Time",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
+			"title": "Polish",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []

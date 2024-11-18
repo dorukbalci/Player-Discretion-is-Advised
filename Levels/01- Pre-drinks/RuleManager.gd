@@ -10,12 +10,41 @@ var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBull
 var paused = false
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
-
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.damageable = false
 
 func _process(delta: float) -> void:
 	toggle_pause(delta)
+	end_round(delta)
 
+#START ROUND
+func _on_start_round_pressed() -> void:
+	paused = false
+	$"Canvas Layer/DeckParent".visible = false
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.damageable = true
 
+func end_round(delta:float):
+	#Check the Amount of players
+	var p1_amount = get_tree().get_node_count_in_group('Player1')
+	var p2_amount = get_tree().get_node_count_in_group('Player2')
+	if p1_amount == 0:
+		GameState.p2score += 1
+		$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
+	if p2_amount == 0:
+		GameState.p1score += 1
+		$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
+	#Remove All Players
+	if p1_amount == 0 or p2_amount == 0:
+		var players = get_tree().get_nodes_in_group('Player')
+		for player in players:
+			player.queue_free()
+		_on_add_self_pressed()
+		$"Canvas Layer/DeckParent".visible = true
+		for player in players:
+			player.damageable = false
 
 #PAUSE GAME
 func toggle_pause(delta : float):
@@ -31,11 +60,11 @@ func toggle_pause(delta : float):
 #ADD PLAYER
 func _on_add_self_pressed() -> void:
 	var newPlayer1 = player1Prefab.instantiate()
-	newPlayer1.position = ogPlayer1.position
+	newPlayer1.position = $SpawnPoints/P1spawn.position
 	add_child(newPlayer1)
 	
 	var newPlayer2 = player2Prefab.instantiate()
-	newPlayer2.position = ogPlayer2.position
+	newPlayer2.position = $SpawnPoints/P2spawn.position
 	add_child(newPlayer2)
 
 #INCREASE SIZE
@@ -64,10 +93,6 @@ func _on_remove_player_pressed() -> void:
 	if len(player1s) >1:
 		player1s[-1].queue_free()
 		player2s[-1].queue_free()
-
-#START GAME
-func _on_start_pressed() -> void:
-	pass
 
 #RESET RULES
 func _on_reset_rules_pressed() -> void:
