@@ -61,7 +61,7 @@ size_flags_vertical = 3
 
 [node name="InternalRules" type="Label" parent="Canvas Layer/DeckParent/INTERNAL RULES"]
 layout_mode = 2
-text = "Rules"
+text = "Your Rules"
 horizontal_alignment = 1
 
 [node name="InternalRulesEdit" type="TextEdit" parent="Canvas Layer/DeckParent/INTERNAL RULES"]
@@ -70,7 +70,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "(Edit Me!)
 1. First to reach 5 points wins.
-2. Keep eyes open when playing."
+2. Player who loses the round can change any rules.
+3. Keep eyes open when playing."
 wrap_mode = 1
 scroll_smooth = true
 
@@ -88,23 +89,23 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.31
 columns = 3
 
-[node name="VBoxContainer1" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="BasicRules" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StartRound" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1"]
+[node name="StartRound" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_0hh8x")
 text = "Start Round"
 
-[node name="Reset Rules" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1"]
+[node name="Reset Rules" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Reset Rules
 "
 
-[node name="Add Self" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1"]
+[node name="Add Self" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -112,23 +113,23 @@ size_flags_stretch_ratio = 1.66
 focus_mode = 0
 text = "Add Player"
 
-[node name="Remove Player" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1"]
+[node name="Remove Player" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Remove Player"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="PlayerRules" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Speed" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="Speed" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
 layout_mode = 2
 text = "  Player Speed  "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpeedSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="SpeedSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
 layout_mode = 2
 min_value = 5000.0
 max_value = 50000.0
@@ -136,109 +137,321 @@ value = 20000.0
 tick_count = 10
 ticks_on_borders = true
 
-[node name="Increase Size" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="SizeX" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
+layout_mode = 2
+
+[node name="DecreaseHorizontalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.66
 focus_mode = 0
-text = "Increase Player Size"
+text = " - "
 
-[node name="Decrease Size" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX"]
+layout_mode = 2
+text = " Horizontal Size "
+
+[node name="IncreaseHorizontalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.66
 focus_mode = 0
-text = "Decrease Player Size"
+text = " + "
 
-[node name="Health" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="SizeY" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Button2" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Health"]
+[node name="DecreaseVerticalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY"]
+layout_mode = 2
+text = " - "
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY"]
+layout_mode = 2
+text = " Vertical Size "
+
+[node name="IncreaseVerticalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY"]
+layout_mode = 2
+text = " + "
+
+[node name="Health" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button2" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " - "
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Health"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "-"
+text = " Max Health: 100 "
 
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Health"]
+[node name="Button" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Health"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "Max Health: 100"
+text = " + "
 
-[node name="Button" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Health"]
+[node name="Jump" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
+layout_mode = 2
+
+[node name="DecreaseJumpForce" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Jump"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "+"
+text = " - "
 
-[node name="Jump" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Jump"]
 layout_mode = 2
-
-[node name="DecreaseJumpForce" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Jump"]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "-"
-
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Jump"]
-layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
 text = "Jump Force"
 
-[node name="IncreaseJumpForce2" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Jump"]
+[node name="IncreaseJumpForce2" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Jump"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "+"
+text = " + "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="BulletRules" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Increase Bullet" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="Increase Bullet" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 text = "Increase Bullet Amount
 "
 
-[node name="DecreaseBullet" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="DecreaseBullet" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 text = "Decrease Bullet
 "
 
-[node name="Bullet Force" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="Bullet Force" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 text = "Bullet Force"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="BulletForceSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="BulletForceSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 min_value = 500.0
 max_value = 20000.0
 value = 500.0
 
-[node name="IncreaseBulletSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="IncreaseBulletSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Increase Bullet Size"
 
-[node name="DecreaseBulletSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer"]
+[node name="DecreaseBulletSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Decrease Bullet Size"
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="LevelPhysics" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gravity Multiplier" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer4"]
+[node name="Gravity Multiplier" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
 layout_mode = 2
 text = "Gravity Multiplier"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Gravity Slider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer4"]
+[node name="Gravity Slider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
 layout_mode = 2
 max_value = 5000.0
 value = 1000.0
 tick_count = 10
 ticks_on_borders = true
+
+[node name="P1 Input" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+
+[node name="p1text" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+text = "P1 Input"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Up" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P1Up" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Up"
+
+[node name="p1text2" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P1Down" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Down
+"
+
+[node name="p1text3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "S
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P1Right" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Right"
+
+[node name="p1text5" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P1Left" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Left
+"
+
+[node name="p1text4" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shoot" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P1Shoot" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shoot
+"
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="P2 Input" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+
+[node name="p2 text" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+text = "P2 Input"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Up" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P2Up" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Up"
+
+[node name="p1text2" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Up Arrow
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P2Down" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Down
+"
+
+[node name="p1text3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Down Arrow"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P2Right" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Right"
+
+[node name="p1text5" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P2Left" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Left
+"
+
+[node name="p1text4" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shoot" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="P2Shoot" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shoot
+"
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Pause Text" type="Label" parent="Canvas Layer"]
 visible = false
@@ -272,16 +485,28 @@ position = Vector2(269, 768)
 [node name="P2spawn" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(899, 768)
 
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1/StartRound" to="." method="_on_start_round_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1/Reset Rules" to="." method="_on_reset_rules_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1/Add Self" to="." method="_on_add_self_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer1/Remove Player" to="." method="_on_remove_player_pressed"]
-[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/SpeedSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Increase Size" to="." method="_on_increase_size_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Decrease Size" to="." method="_on_decrease_size_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Jump/DecreaseJumpForce" to="." method="_on_decrease_jump_force_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer2/Jump/IncreaseJumpForce2" to="." method="_on_increase_jump_force_2_pressed"]
-[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer/BulletForceSlider" to="." method="_on_bullet_force_slider_value_changed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer/IncreaseBulletSize" to="." method="_on_increase_bullet_size_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer/DecreaseBulletSize" to="." method="_on_decrease_bullet_size_pressed"]
-[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/VBoxContainer4/Gravity Slider" to="." method="_on_gravity_slider_value_changed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/StartRound" to="." method="_on_start_round_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Reset Rules" to="." method="_on_reset_rules_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Add Self" to="." method="_on_add_self_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Remove Player" to="." method="_on_remove_player_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SpeedSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX/DecreaseHorizontalSize" to="." method="_on_decrease_horizontal_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX/IncreaseHorizontalSize" to="." method="_on_increase_horizontal_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY/DecreaseVerticalSize" to="." method="_on_decrease_vertical_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY/IncreaseVerticalSize" to="." method="_on_increase_vertical_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Jump/DecreaseJumpForce" to="." method="_on_decrease_jump_force_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/Jump/IncreaseJumpForce2" to="." method="_on_increase_jump_force_2_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletForceSlider" to="." method="_on_bullet_force_slider_value_changed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/IncreaseBulletSize" to="." method="_on_increase_bullet_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/DecreaseBulletSize" to="." method="_on_decrease_bullet_size_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider" to="." method="_on_gravity_slider_value_changed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up/P1Up" to="." method="_on_p_1_up_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down/P1Down" to="." method="_on_p_1_down_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/P1Right" to="." method="_on_p_1_right_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/P1Left" to="." method="_on_p_1_left_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/P1Shoot" to="." method="_on_p_1_shoot_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up/P2Up" to="." method="_on_p_2_up_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down/P2Down" to="." method="_on_p_2_down_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/P2Right" to="." method="_on_p_2_right_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left/P2Left" to="." method="_on_p_2_left_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/P2Shoot" to="." method="_on_p_2_shoot_pressed"]
