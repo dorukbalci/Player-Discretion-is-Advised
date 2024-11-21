@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://cvu8oy11tpw51"]
 
-[ext_resource type="FontFile" uid="uid://d2ydt5ckmu36h" path="res://Utility/Fonts/Steps-Mono-Thin.otf" id="1_of5r5"]
+[ext_resource type="FontFile" uid="uid://dda0p3erh1nxu" path="res://Utility/Fonts/Basteleur-Bold.otf" id="1_ekg74"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp5xa"]
 bg_color = Color(0.262745, 0.631373, 0.490196, 1)
@@ -25,7 +25,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7q4i7"]
-bg_color = Color(0.0897017, 0.266207, 0.1992, 1)
+bg_color = Color(0.0901961, 0.266667, 0.2, 0.807843)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -37,7 +37,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp066"]
-bg_color = Color(0.0897017, 0.266207, 0.1992, 1)
+bg_color = Color(0.0901961, 0.266667, 0.2, 0.87451)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -49,10 +49,10 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [resource]
-Button/fonts/font = ExtResource("1_of5r5")
+Button/fonts/font = ExtResource("1_ekg74")
 Button/styles/normal = SubResource("StyleBoxFlat_bp5xa")
-Label/fonts/font = ExtResource("1_of5r5")
+Label/fonts/font = ExtResource("1_ekg74")
 Label/styles/normal = SubResource("StyleBoxFlat_qnhj3")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_7q4i7")
-TextEdit/fonts/font = ExtResource("1_of5r5")
+TextEdit/fonts/font = ExtResource("1_ekg74")
 TextEdit/styles/normal = SubResource("StyleBoxFlat_jp066")

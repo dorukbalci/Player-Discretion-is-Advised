@@ -415,7 +415,7 @@ text = "Right"
 [node name="p1text5" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "D"
+text = "Right Arrow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -432,7 +432,7 @@ text = "Left
 [node name="p1text4" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "A"
+text = "Left Arrow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -449,7 +449,7 @@ text = "Shoot
 [node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "C"
+text = "Shift"
 horizontal_alignment = 1
 vertical_alignment = 1
 

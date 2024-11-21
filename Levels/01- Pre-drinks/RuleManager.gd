@@ -18,7 +18,7 @@ func _ready() -> void:
 	var root = self
 	var control_count = count_control_nodes(root)
 	print("Number of Control nodes in the scene: ", control_count)
-	update_input_labels()
+	#update_input_labels()
 
 #Count Amount of Control Nodes
 func count_control_nodes(node: Node) -> int:
@@ -169,10 +169,12 @@ func _on_increase_vertical_size_pressed() -> void:
 	for player in players:
 		player.scale += Vector2(0.0,0.1)
 
+#Listen for Input
 func _input(event: InputEvent):
 	if waiting_for_key and event is InputEventKey and event.pressed:
 		bind_key_to_action(event.keycode)
 
+#Bind the next pressed key to an input map action
 func bind_key_to_action(keycode: int):
 	waiting_for_key = false
 	# Create a new InputEventKey
@@ -203,6 +205,7 @@ func update_input_labels():
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_1")[0].keycode)
+
 #CHANGE INPUT FOR PLAYER
 func _on_p_1_up_pressed() -> void:
 	target_input_action = 'jump_0'
