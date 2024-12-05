@@ -9,7 +9,12 @@ var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBull
 var target_input_action : String
 var waiting_for_key := false
 
+var p1_amount
+var p2_amount
 var paused = false
+
+@export var mapArray: Array[PackedScene]
+var current_map = 0
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	var players = get_tree().get_nodes_in_group('Player')
@@ -47,8 +52,9 @@ func _on_start_round_pressed() -> void:
 #END ROUND WHEN THERE'S NO PLAYER LEFT OF A TEAM
 func end_round(delta:float):
 	#Check the Amount of players
-	var p1_amount = get_tree().get_node_count_in_group('Player1')
-	var p2_amount = get_tree().get_node_count_in_group('Player2')
+
+	p1_amount = get_tree().get_node_count_in_group('Player1')
+	p2_amount = get_tree().get_node_count_in_group('Player2')
 	if p1_amount == 0:
 		GameState.p2score += 1
 		$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
@@ -68,13 +74,9 @@ func end_round(delta:float):
 #PAUSE GAME
 func toggle_pause(delta : float):
 	if Input.is_action_just_pressed('pause'):
-		paused = !paused
-		$"Canvas Layer/Rule Panel".visible = !$"Canvas Layer/Rule Panel".visible
-		$"Canvas Layer/Rule BG".visible = !$"Canvas Layer/Rule BG".visible
-		$"Canvas Layer/Pause Text".visible =  !$"Canvas Layer/Pause Text".visible
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.paused = paused
+		var current_scene_path = get_tree().current_scene.scene_file_path
+		get_tree().change_scene_to_file(current_scene_path)
+		
 
 #ADD PLAYER
 func _on_add_self_pressed() -> void:
@@ -246,3 +248,27 @@ func _on_p_2_left_pressed() -> void:
 func _on_p_2_shoot_pressed() -> void:
 	target_input_action = 'shoot_1'
 	waiting_for_key = true
+
+
+func _on_bullet_timer_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.shoot_cooldown = value /100
+
+
+func _on_map_minus_pressed() -> void:
+	current_map -= 1
+	for child in $Maps.get_children():
+		child.queue_free()
+	var new_map_id = current_map % mapArray.size()
+	var new_map = mapArray[new_map_id].instantiate()
+	$Maps.add_child(new_map)
+
+
+func _on_map_plus_pressed() -> void:
+	current_map += 1
+	for child in $Maps.get_children():
+		child.queue_free()
+	var new_map_id = current_map % mapArray.size()
+	var new_map = mapArray[new_map_id].instantiate()
+	$Maps.add_child(new_map)

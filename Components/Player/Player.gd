@@ -8,9 +8,14 @@ var paused := false
 @onready var muzzle : Marker2D = $Muzzle
 var muzzle_position
 
+
+
 #Physical Bullet
 @export var p_bullet_scene: PackedScene  
 @export var shoot_speed: float = 500.0
+@onready var bulletTimer := $BulletTimer
+@export var shoot_cooldown := 0.5
+var can_shoot := true
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -37,6 +42,8 @@ var character_sprite : Sprite2D
 func _ready() -> void:
 	current_state = playerState.Idle
 	muzzle_position = muzzle.position
+	bulletTimer.wait_time = shoot_cooldown
+	
 	
 func _physics_process(delta: float) -> void:
 	if not paused:
@@ -81,23 +88,24 @@ func player_jump(delta: float):
 		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 		
 
-func player_shoot(delta: float):
-	
-	var direction = input_movement()
-	
-	if direction != 0 and Input.is_action_just_pressed('shoot_%s' % playerID):
-		
-		var bullet_instance = bullet.instantiate() as Node2D
-		bullet_instance.direction = direction
-		
-		bullet_instance.scale = bullet_size
-		
-		bullet_instance.global_position = muzzle.global_position
-		get_parent().add_child(bullet_instance)
-		current_state = playerState.Shoot
+#func player_shoot(delta: float):
+	#
+	#var direction = input_movement()
+	#
+	#if direction != 0 and Input.is_action_just_pressed('shoot_%s' % playerID):
+		#
+		#var bullet_instance = bullet.instantiate() as Node2D
+		#bullet_instance.direction = direction
+		#
+		#bullet_instance.scale = bullet_size
+		#
+		#bullet_instance.global_position = muzzle.global_position
+		#get_parent().add_child(bullet_instance)
+		#current_state = playerState.Shoot
 
 func p_shoot(delta: float):
-	if Input.is_action_just_pressed('shoot_%s' % playerID):
+	if Input.is_action_just_pressed('shoot_%s' % playerID) and can_shoot:
+		bulletTimer.wait_time = shoot_cooldown
 		var direction = input_movement()
 		var bullet = p_bullet_scene.instantiate() as RigidBody2D
 		bullet.gravity_scale = gravity / 1000
@@ -107,6 +115,8 @@ func p_shoot(delta: float):
 			child.scale = Vector2.ONE * bullet_size
 		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * shoot_speed
 		get_tree().current_scene.add_child(bullet)
+		can_shoot = false
+		bulletTimer.start()
 
 func swap_muzzle_position():
 	var direction = input_movement()
@@ -144,3 +154,7 @@ func update_health(change : int):
 func die(delta:float):
 	if current_health <= 0:
 		queue_free()
+
+
+func _on_bullet_timer_timeout() -> void:
+	can_shoot = true
