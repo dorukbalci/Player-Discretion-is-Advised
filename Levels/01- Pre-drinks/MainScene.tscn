@@ -76,7 +76,8 @@ focus_mode = 1
 text = "(Edit Me!)
 1. First to reach 5 points wins.
 2. Player who loses the round can change any rules.
-3. Keep eyes open when playing."
+3. Keep eyes open.
+4. P"
 context_menu_enabled = false
 wrap_mode = 1
 scroll_smooth = true

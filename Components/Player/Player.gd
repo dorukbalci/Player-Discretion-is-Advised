@@ -39,6 +39,8 @@ enum playerState {Idle, Run, Jump, Shoot}
 var current_state : playerState
 var character_sprite : Sprite2D
 
+signal dying
+
 func _ready() -> void:
 	current_state = playerState.Idle
 	muzzle_position = muzzle.position
@@ -152,6 +154,7 @@ func update_health(change : int):
 
 
 func die(delta:float):
+	dying.emit()
 	if current_health <= 0:
 		queue_free()
 

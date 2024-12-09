@@ -74,8 +74,13 @@ func end_round(delta:float):
 #PAUSE GAME
 func toggle_pause(delta : float):
 	if Input.is_action_just_pressed('pause'):
-		var current_scene_path = get_tree().current_scene.scene_file_path
-		get_tree().change_scene_to_file(current_scene_path)
+		var players = get_tree().get_nodes_in_group('Player')
+		for player in players:
+			player.queue_free()
+		_on_add_self_pressed()
+		$"Canvas Layer/DeckParent".visible = true
+		for player in players:
+			player.damageable = false
 		
 
 #ADD PLAYER

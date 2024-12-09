@@ -13,19 +13,19 @@
 			"tasks": [
 				"ae35c34e-e3dd-4b98-9adc-05dbd29e5b0f",
 				"9866ab77-1ee8-4fac-909b-f0d733c0eac6",
-				"eda4580d-00af-469a-af60-0a3baed3b3d5",
-				"d210372a-2608-4c30-9be8-804153659e38",
 				"3d48c697-1c43-482e-8c2a-a7fd14d62578",
 				"0186d1fc-6786-47d9-82d9-b51a846fe8c6",
 				"f4eda4cb-dc7b-49e2-890c-d1e3dfbc9953",
-				"7c1ebfe1-adeb-4695-b3c4-41784e57089e",
-				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb"
+				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
+				"dc93eaf8-18fa-4b6a-93a2-19df39a7b202"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"cf763773-dca2-426b-a2a0-ccd8cd0931cf"
+			]
 		},
 		{
 			"uuid": "fc07b160-cba8-4420-baab-dbfabe5c9367",
@@ -102,13 +102,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "eda4580d-00af-469a-af60-0a3baed3b3d5",
-			"title": "Player Health",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
 			"uuid": "e7c8fb1d-35c5-414d-b5b6-226b088298e3",
 			"title": "Player Speed",
 			"description": "",
@@ -137,13 +130,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "d210372a-2608-4c30-9be8-804153659e38",
-			"title": "Changes Apply to New Players Too",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
 			"uuid": "3d48c697-1c43-482e-8c2a-a7fd14d62578",
 			"title": "Save Rules",
 			"description": "",
@@ -165,15 +151,22 @@
 			"steps": []
 		},
 		{
-			"uuid": "7c1ebfe1-adeb-4695-b3c4-41784e57089e",
-			"title": "Reset Each Time",
+			"uuid": "54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
+			"title": "Polish",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
 		},
 		{
-			"uuid": "54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
-			"title": "Polish",
+			"uuid": "dc93eaf8-18fa-4b6a-93a2-19df39a7b202",
+			"title": "capture the flag",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "cf763773-dca2-426b-a2a0-ccd8cd0931cf",
+			"title": "restart",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
