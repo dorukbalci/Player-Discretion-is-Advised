@@ -277,3 +277,23 @@ func _on_map_plus_pressed() -> void:
 	var new_map_id = current_map % mapArray.size()
 	var new_map = mapArray[new_map_id].instantiate()
 	$Maps.add_child(new_map)
+
+
+func _on_minus_p_1_pressed() -> void:
+	GameState.p1score -= 1
+	$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
+
+
+func _on_positive_p_1_pressed() -> void:
+	GameState.p1score += 1
+	$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
+
+
+func _on_minus_p_2_pressed() -> void:
+	GameState.p2score -= 1
+	$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
+
+
+func _on_positive_p_2_pressed() -> void:
+	GameState.p2score += 1
+	$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
