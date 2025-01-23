@@ -12,19 +12,17 @@
 			"title": "Todo",
 			"tasks": [
 				"ae35c34e-e3dd-4b98-9adc-05dbd29e5b0f",
-				"9866ab77-1ee8-4fac-909b-f0d733c0eac6",
 				"3d48c697-1c43-482e-8c2a-a7fd14d62578",
-				"0186d1fc-6786-47d9-82d9-b51a846fe8c6",
+				"2991fc7c-7e98-497f-83d4-a2ee81735884",
 				"f4eda4cb-dc7b-49e2-890c-d1e3dfbc9953",
-				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
-				"dc93eaf8-18fa-4b6a-93a2-19df39a7b202"
+				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb"
 			]
 		},
 		{
 			"uuid": "d2d983cc-ead1-4593-b9c8-4aba43d81dff",
 			"title": "Doing",
 			"tasks": [
-				"cf763773-dca2-426b-a2a0-ccd8cd0931cf"
+				"41703372-4006-47f4-8772-cc9f4b3fa779"
 			]
 		},
 		{
@@ -32,8 +30,11 @@
 			"title": "Done",
 			"tasks": [
 				"b04860f5-ea80-41c0-a2d3-82c169282235",
+				"cf763773-dca2-426b-a2a0-ccd8cd0931cf",
 				"0418e90a-99fd-4096-87ed-69f3bc5b651b",
+				"40ff61ec-756f-4b52-8d13-962c0e101d33",
 				"3e2044eb-21e1-4ef3-af7b-910af8704aca",
+				"0186d1fc-6786-47d9-82d9-b51a846fe8c6",
 				"42420cc6-edfd-4303-9bd7-d22e92c4c193",
 				"e691cd72-78a0-4338-880d-bc58e4815867",
 				"323863eb-9f3d-48f7-a336-09c897e83fee",
@@ -123,13 +124,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "9866ab77-1ee8-4fac-909b-f0d733c0eac6",
-			"title": "score per full team",
-			"description": "",
-			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
-			"steps": []
-		},
-		{
 			"uuid": "3d48c697-1c43-482e-8c2a-a7fd14d62578",
 			"title": "Save Rules",
 			"description": "",
@@ -158,15 +152,29 @@
 			"steps": []
 		},
 		{
-			"uuid": "dc93eaf8-18fa-4b6a-93a2-19df39a7b202",
-			"title": "capture the flag",
+			"uuid": "cf763773-dca2-426b-a2a0-ccd8cd0931cf",
+			"title": "restart",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
 		},
 		{
-			"uuid": "cf763773-dca2-426b-a2a0-ccd8cd0931cf",
-			"title": "restart",
+			"uuid": "2991fc7c-7e98-497f-83d4-a2ee81735884",
+			"title": "Blocking TIme",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "40ff61ec-756f-4b52-8d13-962c0e101d33",
+			"title": "Double & Triple Jump",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "41703372-4006-47f4-8772-cc9f4b3fa779",
+			"title": "Add jump parameter to deck",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []

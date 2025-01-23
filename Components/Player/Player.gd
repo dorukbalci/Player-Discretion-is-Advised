@@ -41,6 +41,13 @@ var character_sprite : Sprite2D
 
 signal dying
 
+#blocking variables
+@export var block_duration := 1.0
+var is_blocking = false
+
+@export var jump_amount := 1
+var current_jump := 0
+
 func _ready() -> void:
 	current_state = playerState.Idle
 	muzzle_position = muzzle.position
@@ -53,12 +60,14 @@ func _physics_process(delta: float) -> void:
 		player_idle(delta)
 		player_run(delta)
 		player_jump(delta)
+		block(delta)
 		swap_muzzle_position()
 		#player_shoot(delta)
 		p_shoot(delta)
 		move_and_slide()
 		player_animations()
 		die(delta)
+		
 
 func player_falling(delta: float):
 	if not is_on_floor():
@@ -69,25 +78,35 @@ func player_idle(delta: float):
 		current_state = playerState.Idle
 
 func player_run(delta: float):
-	var direction = input_movement()
-	if direction:
-		velocity.x = direction * speed * delta
-	else:
-		velocity.x = 0
-	if direction != 0:
-		current_state = playerState.Run
-		animated_sprite_2d.flip_h = false if direction > 0 else true
+	if !is_blocking:
+		var direction = input_movement()
+		if direction:
+			velocity.x = direction * speed * delta
+		else:
+			velocity.x = 0
+		if direction != 0:
+			current_state = playerState.Run
+			animated_sprite_2d.flip_h = false if direction > 0 else true
 		
 func player_jump(delta: float):
-	if Input.is_action_just_pressed('jump_%s' % playerID) and is_on_floor():
-		velocity.y = -jumpForce
-		current_state = playerState.Jump
-	if !is_on_floor() and current_state== playerState.Jump:
-		var direction = input_movement()
-		#velocity.x += direction * jump_hspeed * delta
-		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
-		velocity.x += direction * speed * delta
-		#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+	if is_on_floor():
+		current_jump = 0
+	if !is_blocking :
+		if Input.is_action_just_pressed('jump_%s' % playerID):
+			if is_on_floor():
+				velocity.y = -jumpForce
+				current_state = playerState.Jump
+				current_jump += 1
+			elif current_jump > 0 && current_jump < jump_amount:
+				velocity.y = -jumpForce
+				current_state = playerState.Jump
+				current_jump += 1
+		if !is_on_floor() and current_state== playerState.Jump:
+			var direction = input_movement()
+			#velocity.x += direction * jump_hspeed * delta
+			#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
+			velocity.x += direction * speed * delta
+			#velocity.x = clamp(velocity.x, -max_hspeed,max_hspeed)
 		
 
 #func player_shoot(delta: float):
@@ -144,14 +163,22 @@ func input_movement():
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Bullet') && !body.is_in_group('Bullet_%s'%playerID):
 		body.queue_free()
-		update_health(-20)
-		print('Bullet Entered')
+		if !is_blocking:
+			update_health(-20)
+			print('Bullet Entered')
 
 func update_health(change : int):
 	if damageable:
 		current_health += change
 		healthbar.value = current_health
 
+func block(delta:float):
+	if Input.is_action_pressed('block_%s' % playerID):
+		is_blocking = true
+		$Block.visible = true
+	else:
+		is_blocking = false
+		$Block.visible = false
 
 func die(delta:float):
 	dying.emit()

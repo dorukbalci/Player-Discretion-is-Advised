@@ -206,12 +206,14 @@ func update_input_labels():
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_0")[0].keycode)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block/Label'.text = OS.get_keycode_string(InputMap.action_get_events("block_0")[0].keycode)
 	
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up/p1text2".text = OS.get_keycode_string(InputMap.action_get_events("jump_1")[0].keycode)
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down/p1text3".text = OS.get_keycode_string(InputMap.action_get_events("down_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_1")[0].keycode)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block/Label'.text = OS.get_keycode_string(InputMap.action_get_events("block_1")[0].keycode)
 
 #CHANGE INPUT FOR PLAYER
 func _on_p_1_up_pressed() -> void:
@@ -252,6 +254,15 @@ func _on_p_2_left_pressed() -> void:
 
 func _on_p_2_shoot_pressed() -> void:
 	target_input_action = 'shoot_1'
+	waiting_for_key = true
+
+func _on_p_1_block_pressed() -> void:
+	target_input_action = 'block_0'
+	waiting_for_key = true
+
+
+func _on_p_2_block_pressed() -> void:
+	target_input_action = 'block_0'
 	waiting_for_key = true
 
 
@@ -297,3 +308,22 @@ func _on_minus_p_2_pressed() -> void:
 func _on_positive_p_2_pressed() -> void:
 	GameState.p2score += 1
 	$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
+
+
+func _on_jump_q_minus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	var jump_am 
+	for player in players:
+		if player.jump_amount > 0:
+			player.jump_amount += -1
+			jump_am = player.jump_amount
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount:' + str(jump_am)
+
+
+func _on_jump_q_plus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	var jump_am 
+	for player in players:
+		player.jump_amount += 1
+		jump_am = player.jump_amount
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount:' + str(jump_am)

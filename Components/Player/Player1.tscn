@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://buu2hemimtnb4"]
+[gd_scene load_steps=41 format=3 uid="uid://buu2hemimtnb4"]
 
 [ext_resource type="Texture2D" uid="uid://x73oechq486" path="res://Components/Player/Sprite(sheets)/player-idle.png" id="1_dy6ck"]
 [ext_resource type="Script" path="res://Components/Player/Player.gd" id="1_kxsxc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://slyflkkkmyg6" path="res://Components/Player/Physical Bullet/PhysicalBullet.tscn" id="2_e4703"]
 [ext_resource type="Texture2D" uid="uid://c0obq8rxlc25a" path="res://Components/Player/Sprite(sheets)/player-jump.png" id="3_qqdql"]
 [ext_resource type="Texture2D" uid="uid://dh8vfs0sphrc6" path="res://Components/Player/Sprite(sheets)/player-run-shoot.png" id="5_01bng"]
+[ext_resource type="Texture2D" uid="uid://hbqw86fe8gm2" path="res://Components/Player/block circle.png" id="7_jc055"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0myak"]
 atlas = ExtResource("1_dy6ck")
@@ -294,6 +295,13 @@ show_percentage = false
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 0.11
 one_shot = true
+
+[node name="Block" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.403922)
+position = Vector2(0, -20)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_jc055")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]
