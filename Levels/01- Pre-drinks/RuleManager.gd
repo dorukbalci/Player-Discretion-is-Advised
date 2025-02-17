@@ -9,8 +9,6 @@ var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBull
 var target_input_action : String
 var waiting_for_key := false
 
-var p1_amount
-var p2_amount
 var paused = false
 
 @export var mapArray: Array[PackedScene]
@@ -53,14 +51,16 @@ func _on_start_round_pressed() -> void:
 func end_round(delta:float):
 	#Check the Amount of players
 
-	p1_amount = get_tree().get_node_count_in_group('Player1')
-	p2_amount = get_tree().get_node_count_in_group('Player2')
+	var p1_amount = get_tree().get_node_count_in_group('Player1')
+	var p2_amount = get_tree().get_node_count_in_group('Player2')
 	if p1_amount == 0:
 		GameState.p2score += 1
 		$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
+		$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
 	if p2_amount == 0:
 		GameState.p1score += 1
 		$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
+		$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
 	#Remove All Players
 	if p1_amount == 0 or p2_amount == 0:
 		var players = get_tree().get_nodes_in_group('Player')
@@ -327,3 +327,17 @@ func _on_jump_q_plus_pressed() -> void:
 		player.jump_amount += 1
 		jump_am = player.jump_amount
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount:' + str(jump_am)
+
+
+func _on_block_duration_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.block_duration = value / 10.0
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationLabel".text = 'Block Duration: %s' % str(value/10.0)
+
+
+func _on_block_cool_down_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.block_cooldown = value / 10.0
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownLabel".text = 'Block Duration: %s' % str(value/10.0)

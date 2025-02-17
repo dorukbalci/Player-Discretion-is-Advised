@@ -43,7 +43,9 @@ signal dying
 
 #blocking variables
 @export var block_duration := 1.0
+@export var block_cooldown := 1.0
 var is_blocking = false
+var can_block = true
 
 @export var jump_amount := 1
 var current_jump := 0
@@ -173,7 +175,12 @@ func update_health(change : int):
 		healthbar.value = current_health
 
 func block(delta:float):
-	if Input.is_action_pressed('block_%s' % playerID):
+	if Input.is_action_just_pressed('block_%s' % playerID):
+		$Timers/BlockTimer.start(block_duration)
+	if Input.is_action_just_released('block_%s' % playerID):
+		$Timers/BlockTimer.stop()
+	if Input.is_action_pressed('block_%s' % playerID) and can_block:
+		block_duration -= delta
 		is_blocking = true
 		$Block.visible = true
 	else:
@@ -185,6 +192,14 @@ func die(delta:float):
 	if current_health <= 0:
 		queue_free()
 
-
 func _on_bullet_timer_timeout() -> void:
 	can_shoot = true
+
+
+func _on_block_timer_timeout() -> void:
+	can_block = false
+	$Timers/BlockCooldown.start(block_duration)
+
+
+func _on_block_cooldown_timeout() -> void:
+	can_block=true

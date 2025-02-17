@@ -67,18 +67,18 @@ theme = ExtResource("4_nni5d")
 
 [node name="Rule BG" type="PanelContainer" parent="Canvas Layer/DeckParent"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 43.0
 offset_top = 85.0
 offset_right = 705.0
-offset_bottom = 421.0
+offset_bottom = 370.0
 mouse_filter = 1
 
 [node name="INTERNAL RULES" type="VBoxContainer" parent="Canvas Layer/DeckParent"]
 layout_mode = 0
 offset_left = 717.0
 offset_top = 86.0
-offset_right = 1064.0
-offset_bottom = 417.0
+offset_right = 1086.0
+offset_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -107,10 +107,10 @@ scroll_smooth = true
 
 [node name="Rule Panel" type="ScrollContainer" parent="Canvas Layer/DeckParent"]
 layout_mode = 0
-offset_left = 73.0
+offset_left = 50.0
 offset_top = 91.0
 offset_right = 699.0
-offset_bottom = 421.0
+offset_bottom = 364.0
 script = ExtResource("5_x73nu")
 
 [node name="GridContainer" type="GridContainer" parent="Canvas Layer/DeckParent/Rule Panel"]
@@ -134,6 +134,7 @@ text = "Start Round"
 [node name="Reset Rules" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules"]
 layout_mode = 2
 size_flags_vertical = 3
+tooltip_text = "Resets the Rules!"
 text = "Reset Rules
 "
 
@@ -184,12 +185,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.66
+tooltip_text = "Add more players characters to control."
 focus_mode = 0
 text = "Add Player"
 
 [node name="Remove Player" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
 layout_mode = 2
 size_flags_vertical = 3
+tooltip_text = "Remove a player character."
 text = "Remove Player"
 
 [node name="Speed" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
@@ -200,6 +203,7 @@ vertical_alignment = 1
 
 [node name="SpeedSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules"]
 layout_mode = 2
+tooltip_text = "Change the speed."
 min_value = 5000.0
 max_value = 50000.0
 value = 20000.0
@@ -217,6 +221,8 @@ text = " - "
 
 [node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX"]
 layout_mode = 2
+tooltip_text = "Make them thick!"
+mouse_filter = 1
 text = " Horizontal Size "
 
 [node name="IncreaseHorizontalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeX"]
@@ -237,6 +243,8 @@ text = " - "
 
 [node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY"]
 layout_mode = 2
+tooltip_text = "Make them tall!"
+mouse_filter = 1
 text = " Vertical Size "
 
 [node name="IncreaseVerticalSize" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SizeY"]
@@ -382,6 +390,26 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "  >  "
+
+[node name="BlockDurationLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
+layout_mode = 2
+text = "Block Duration"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlockDurationSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
+layout_mode = 2
+max_value = 50.0
+
+[node name="BlockCoolDownLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
+layout_mode = 2
+text = "Block Cooldown"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlockCoolDownSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
+layout_mode = 2
+max_value = 50.0
 
 [node name="P1 Input" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
@@ -676,6 +704,8 @@ position = Vector2(899, 768)
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider" to="." method="_on_gravity_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map/MapMinus" to="." method="_on_map_minus_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map/MapPlus" to="." method="_on_map_plus_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationSlider" to="." method="_on_block_duration_slider_value_changed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownSlider" to="." method="_on_block_cool_down_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up/P1Up" to="." method="_on_p_1_up_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down/P1Down" to="." method="_on_p_1_down_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/P1Right" to="." method="_on_p_1_right_pressed"]

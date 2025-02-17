@@ -303,5 +303,15 @@ position = Vector2(0, -20)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_jc055")
 
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="BlockTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="BlockCooldown" type="Timer" parent="Timers"]
+one_shot = true
+
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]
+[connection signal="timeout" from="Timers/BlockTimer" to="." method="_on_block_timer_timeout"]
+[connection signal="timeout" from="Timers/BlockCooldown" to="." method="_on_block_cooldown_timeout"]
