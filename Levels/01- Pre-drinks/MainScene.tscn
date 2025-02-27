@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bsss8r8s08osv"]
+[gd_scene load_steps=16 format=3 uid="uid://bsss8r8s08osv"]
 
 [ext_resource type="Script" path="res://Levels/01- Pre-drinks/RuleManager.gd" id="1_w7yjp"]
 [ext_resource type="PackedScene" uid="uid://buu2hemimtnb4" path="res://Components/Player/Player1.tscn" id="2_nb616"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cgwp7fr4igrpu" path="res://Components/Maps/map_2.tscn" id="7_agx5a"]
 [ext_resource type="PackedScene" uid="uid://7mlyoq0kgyfv" path="res://Components/Maps/map_3.tscn" id="8_kvc23"]
 [ext_resource type="Shader" path="res://Levels/01- Pre-drinks/Dither.gdshader" id="9_8e6lk"]
+[ext_resource type="Texture2D" uid="uid://chbqtw366kjbj" path="res://Components/Maps/bgtile3.png" id="10_3ub7c"]
 
 [sub_resource type="Theme" id="Theme_0hh8x"]
 Button/fonts/font = null
@@ -668,6 +669,7 @@ layer_0/tile_data = PackedInt32Array(4390933, 917505, 7, 4390934, 917505, 7, 439
 
 [node name="Player1" parent="Players" instance=ExtResource("2_nb616")]
 position = Vector2(172, 762)
+dash_speed = 50000
 
 [node name="Player2" parent="Players" instance=ExtResource("3_vy1c8")]
 position = Vector2(925, 756)
@@ -679,6 +681,81 @@ position = Vector2(269, 768)
 
 [node name="P2spawn" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(899, 768)
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(861, 744)
+
+[node name="Bgtile3" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-747, -619)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile4" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(149, -619)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile5" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-147, -619)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile6" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-448, -619)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile7" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-747, -319)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile8" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(149, -319)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile9" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-147, -319)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile10" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-448, -319)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile11" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-747, -19)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile12" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(149, -19)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile13" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-147, -19)
+texture = ExtResource("10_3ub7c")
+
+[node name="Bgtile14" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.211765)
+z_index = -2
+position = Vector2(-448, -19)
+texture = ExtResource("10_3ub7c")
 
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Reset Rules" to="." method="_on_reset_rules_pressed"]

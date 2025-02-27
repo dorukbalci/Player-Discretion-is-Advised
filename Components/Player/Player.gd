@@ -47,17 +47,36 @@ signal dying
 var is_blocking = false
 var can_block = true
 
+#double jump vars
 @export var jump_amount := 1
 var current_jump := 0
+
+#dash variables
+# Dash variables
+@export var dash_speed: int = 50000  # Speed boost during dash
+@export var dash_duration: float = 0.2  # Dash duration (seconds)
+@export var dash_cooldown: float = 0.5  # Cooldown before dashing again
+
+var is_dashing := false
+var can_dash := true
+var dash_direction := 0
+
+@onready var dash_timer := $Timers/DashTimer
+@onready var dash_cooldown_timer := $Timers/DashCooldown
+
+
 
 func _ready() -> void:
 	current_state = playerState.Idle
 	muzzle_position = muzzle.position
 	bulletTimer.wait_time = shoot_cooldown
+	dash_timer.wait_time = dash_duration
+	dash_cooldown_timer.wait_time = dash_cooldown
 	
 	
 func _physics_process(delta: float) -> void:
 	if not paused:
+		handle_dash()
 		player_falling(delta)
 		player_idle(delta)
 		player_run(delta)
@@ -66,10 +85,31 @@ func _physics_process(delta: float) -> void:
 		swap_muzzle_position()
 		#player_shoot(delta)
 		p_shoot(delta)
-		move_and_slide()
 		player_animations()
 		die(delta)
-		
+		if is_dashing:
+			velocity.x = dash_direction * dash_speed * delta
+			print(dash_direction)
+		move_and_slide()
+
+func handle_dash():
+	if Input.is_action_just_pressed("dash_%s" % playerID) and can_dash:
+		is_dashing = true
+		can_dash = false
+		dash_direction = input_movement()
+
+		# If no movement input, dash in the direction player is facing
+		if dash_direction == 0:
+			dash_direction = -1 if animated_sprite_2d.flip_h else 1
+
+		dash_timer.start()
+
+func _on_dash_timer_timeout() -> void:
+	is_dashing = false  # End dash effect
+	dash_cooldown_timer.start()  # Start cooldown
+
+func _on_dash_cooldown_timeout() -> void:
+	can_dash = true  # Allow dashing again
 
 func player_falling(delta: float):
 	if not is_on_floor():
