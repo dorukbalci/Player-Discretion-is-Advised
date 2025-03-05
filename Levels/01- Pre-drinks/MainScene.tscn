@@ -111,7 +111,7 @@ layout_mode = 0
 offset_left = 50.0
 offset_top = 91.0
 offset_right = 699.0
-offset_bottom = 364.0
+offset_bottom = 365.0
 script = ExtResource("5_x73nu")
 
 [node name="GridContainer" type="GridContainer" parent="Canvas Layer/DeckParent/Rule Panel"]
@@ -306,15 +306,15 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Decrease Bullet Size"
 
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="Divider" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 text = "------------------------------"
 
-[node name="Label2" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="Divider2" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 text = "-------------------------------"
 
-[node name="Label3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+[node name="Divider3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 text = "------------------------------"
 
@@ -372,26 +372,6 @@ layout_mode = 2
 max_value = 5000.0
 value = 1000.0
 
-[node name="Change Map" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
-layout_mode = 2
-
-[node name="MapMinus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = " <  "
-
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Map"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MapPlus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "  >  "
-
 [node name="BlockDurationLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics"]
 layout_mode = 2
 text = "Block Duration"
@@ -437,24 +417,6 @@ text = "W"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Down" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="P1Down" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Down
-"
-
-[node name="p1text3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "S
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Right" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -488,6 +450,21 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Block" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+layout_mode = 2
+
+[node name="P1Block" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Block"
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Shoot" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -505,15 +482,15 @@ text = "C"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Block" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
+[node name="Dash" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input"]
 layout_mode = 2
 
-[node name="P1Block" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block"]
+[node name="p1Dash" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Dash"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Block"
+text = "Dash"
 
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block"]
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Dash"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "V"
@@ -543,23 +520,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Up Arrow
 "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Down" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="P2Down" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Down
-"
-
-[node name="p1text3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Down Arrow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -596,6 +556,22 @@ text = "Left Arrow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Block" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+layout_mode = 2
+
+[node name="P2Block" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Block"
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Down Arrow
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Shoot" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -613,30 +589,94 @@ text = "Shift"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Block" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
+[node name="Dash" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="P2Block" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block"]
+[node name="P2Dash" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Dash"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Block"
+text = "Dash"
 
-[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block"]
+[node name="p1text3" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Dash"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "/"
+text = "?/"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Win Conditions" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
-visible = false
+[node name="Divider4" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+text = "------------------------------"
+
+[node name="Divider5" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+text = "-------------------------------"
+
+[node name="Divider6" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+text = "------------------------------"
+
+[node name="Map" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
 layout_mode = 2
 
-[node name="WinCond" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/Win Conditions"]
+[node name="Change Map" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map"]
 layout_mode = 2
-text = "Win Conditions"
+
+[node name="MapMinus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map/Change Map"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " <  "
+
+[node name="Label" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map/Change Map"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Map"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MapPlus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map/Change Map"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "  >  "
+
+[node name="DashVars" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
+
+[node name="DashSpeed" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+text = "Dash Speed: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DSpeedSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+min_value = 10.0
+max_value = 200.0
+value = 60.0
+
+[node name="DashDuration" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+text = "Dash Duration: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DDurationSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+min_value = 10.0
+value = 10.0
+
+[node name="DashCooldown" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+text = "Dash Cooldown: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DCooldownSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer"]
+layout_mode = 2
 
 [node name="Pause Text" type="Label" parent="Canvas Layer"]
 visible = false
@@ -669,7 +709,6 @@ layer_0/tile_data = PackedInt32Array(4390933, 917505, 7, 4390934, 917505, 7, 439
 
 [node name="Player1" parent="Players" instance=ExtResource("2_nb616")]
 position = Vector2(172, 762)
-dash_speed = 50000
 
 [node name="Player2" parent="Players" instance=ExtResource("3_vy1c8")]
 position = Vector2(925, 756)
@@ -779,19 +818,22 @@ texture = ExtResource("10_3ub7c")
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/JumpQMinus" to="." method="_on_jump_q_minus_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/JumpQPlus" to="." method="_on_jump_q_plus_pressed"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider" to="." method="_on_gravity_slider_value_changed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map/MapMinus" to="." method="_on_map_minus_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Change Map/MapPlus" to="." method="_on_map_plus_pressed"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationSlider" to="." method="_on_block_duration_slider_value_changed"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownSlider" to="." method="_on_block_cool_down_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up/P1Up" to="." method="_on_p_1_up_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down/P1Down" to="." method="_on_p_1_down_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/P1Right" to="." method="_on_p_1_right_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/P1Left" to="." method="_on_p_1_left_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/P1Shoot" to="." method="_on_p_1_shoot_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block/P1Block" to="." method="_on_p_1_block_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/P1Shoot" to="." method="_on_p_1_shoot_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Dash/p1Dash" to="." method="_on_p_1_dash_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up/P2Up" to="." method="_on_p_2_up_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down/P2Down" to="." method="_on_p_2_down_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/P2Right" to="." method="_on_p_2_right_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left/P2Left" to="." method="_on_p_2_left_pressed"]
-[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/P2Shoot" to="." method="_on_p_2_shoot_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Block/P2Block" to="." method="_on_p_2_block_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/P2Shoot" to="." method="_on_p_2_shoot_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Dash/P2Dash" to="." method="_on_p_2_dash_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map/Change Map/MapMinus" to="." method="_on_map_minus_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/Map/Change Map/MapPlus" to="." method="_on_map_plus_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DSpeedSlider" to="." method="_on_d_speed_slider_value_changed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DDurationSlider" to="." method="_on_d_duration_slider_value_changed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DCooldownSlider" to="." method="_on_d_cooldown_slider_value_changed"]

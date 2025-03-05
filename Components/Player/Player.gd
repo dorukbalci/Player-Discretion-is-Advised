@@ -89,27 +89,7 @@ func _physics_process(delta: float) -> void:
 		die(delta)
 		if is_dashing:
 			velocity.x = dash_direction * dash_speed * delta
-			print(dash_direction)
 		move_and_slide()
-
-func handle_dash():
-	if Input.is_action_just_pressed("dash_%s" % playerID) and can_dash:
-		is_dashing = true
-		can_dash = false
-		dash_direction = input_movement()
-
-		# If no movement input, dash in the direction player is facing
-		if dash_direction == 0:
-			dash_direction = -1 if animated_sprite_2d.flip_h else 1
-
-		dash_timer.start()
-
-func _on_dash_timer_timeout() -> void:
-	is_dashing = false  # End dash effect
-	dash_cooldown_timer.start()  # Start cooldown
-
-func _on_dash_cooldown_timeout() -> void:
-	can_dash = true  # Allow dashing again
 
 func player_falling(delta: float):
 	if not is_on_floor():
@@ -243,3 +223,24 @@ func _on_block_timer_timeout() -> void:
 
 func _on_block_cooldown_timeout() -> void:
 	can_block=true
+
+func handle_dash():
+	if Input.is_action_just_pressed("dash_%s" % playerID) and can_dash:
+		dash_timer.wait_time = dash_duration
+		dash_cooldown_timer.wait_time = dash_cooldown
+		is_dashing = true
+		can_dash = false
+		dash_direction = input_movement()
+
+		# If no movement input, dash in the direction player is facing
+		if dash_direction == 0:
+			dash_direction = -1 if animated_sprite_2d.flip_h else 1
+
+		dash_timer.start()
+
+func _on_dash_timer_timeout() -> void:
+	is_dashing = false  # End dash effect
+	dash_cooldown_timer.start()  # Start cooldown
+
+func _on_dash_cooldown_timeout() -> void:
+	can_dash = true  # Allow dashing again

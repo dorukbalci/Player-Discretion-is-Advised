@@ -202,14 +202,14 @@ func bind_key_to_action(keycode: int):
 
 func update_input_labels():
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up/p1text2".text = OS.get_keycode_string(InputMap.action_get_events("jump_0")[0].keycode)
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Down/p1text3".text = OS.get_keycode_string(InputMap.action_get_events("down_0")[0].keycode)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Dash/Label".text = OS.get_keycode_string(InputMap.action_get_events("dash_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block/Label'.text = OS.get_keycode_string(InputMap.action_get_events("block_0")[0].keycode)
 	
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up/p1text2".text = OS.get_keycode_string(InputMap.action_get_events("jump_1")[0].keycode)
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Down/p1text3".text = OS.get_keycode_string(InputMap.action_get_events("down_1")[0].keycode)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Dash/p1text3".text = OS.get_keycode_string(InputMap.action_get_events("dash_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_1")[0].keycode)
@@ -218,10 +218,6 @@ func update_input_labels():
 #CHANGE INPUT FOR PLAYER
 func _on_p_1_up_pressed() -> void:
 	target_input_action = 'jump_0'
-	waiting_for_key = true
-
-func _on_p_1_down_pressed() -> void:
-	target_input_action = 'down_0'
 	waiting_for_key = true
 
 func _on_p_1_right_pressed() -> void:
@@ -240,9 +236,6 @@ func _on_p_2_up_pressed() -> void:
 	target_input_action = 'jump_1'
 	waiting_for_key = true
 
-func _on_p_2_down_pressed() -> void:
-	target_input_action = 'down_1'
-	waiting_for_key = true
 
 func _on_p_2_right_pressed() -> void:
 	target_input_action = 'move_right_1'
@@ -265,6 +258,14 @@ func _on_p_2_block_pressed() -> void:
 	target_input_action = 'block_0'
 	waiting_for_key = true
 
+
+func _on_p_1_dash_pressed() -> void:
+	target_input_action = 'dash_0'
+	waiting_for_key = true
+
+func _on_p_2_dash_pressed() -> void:
+	target_input_action = 'dash_1'
+	waiting_for_key = true
 
 func _on_bullet_timer_slider_value_changed(value: float) -> void:
 	var players = get_tree().get_nodes_in_group('Player')
@@ -341,3 +342,26 @@ func _on_block_cool_down_slider_value_changed(value: float) -> void:
 	for player in players:
 		player.block_cooldown = value / 10.0
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownLabel".text = 'Block Duration: %s' % str(value/10.0)
+
+
+#Dash Variables
+
+func _on_d_speed_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.dash_speed = value * 1000
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashSpeed".text = 'Dash Speed: %s' % str(value)
+
+
+func _on_d_duration_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.dash_duration = value / 50.0
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashDuration".text = 'Dash Duration: %s' % str(value/50.0)
+
+
+func _on_d_cooldown_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.dash_cooldown = value / 50.0
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashCooldown".text = 'Dash Cooldown: %s' % str(value/50.0)
