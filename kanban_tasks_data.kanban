@@ -15,7 +15,8 @@
 				"3d48c697-1c43-482e-8c2a-a7fd14d62578",
 				"2991fc7c-7e98-497f-83d4-a2ee81735884",
 				"f4eda4cb-dc7b-49e2-890c-d1e3dfbc9953",
-				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb"
+				"54ccf8f5-de82-4a64-b9cc-e60dbb161ddb",
+				"2871ac90-e5ab-4828-98a4-fb5fc256cc9c"
 			]
 		},
 		{
@@ -175,6 +176,13 @@
 		{
 			"uuid": "41703372-4006-47f4-8772-cc9f4b3fa779",
 			"title": "Add jump parameter to deck",
+			"description": "",
+			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
+			"steps": []
+		},
+		{
+			"uuid": "2871ac90-e5ab-4828-98a4-fb5fc256cc9c",
+			"title": "house rule stuff",
 			"description": "",
 			"category": "c1bd68f5-7efd-45cf-8c20-b77268bdfd9b",
 			"steps": []
