@@ -1,23 +1,31 @@
 extends RigidBody2D
 
 @export var speed: float = 500.0
-@export var life_time: float = 2.0  # Time in seconds
-@export var damage:= 20
+@export var life_time: float = 2.0
+@export var damage := 20
+@export var max_bounces := 0
+@export var knockback_force := 0.0
 
 var time_alive: float = 0.0
-var bullet_rotation
+var bounce_count := 0
 
 func _ready():
-	# Apply velocity in the direction the bullet is facing
-	#linear_velocity = Vector2(cos(rotation), sin(rotation)) * speed
-	pass
+	contact_monitor = true
+	max_contacts_reported = 4
+	body_entered.connect(_on_body_entered)
 
 func _physics_process(delta: float):
-	# Track bullet lifetime and destroy it when time exceeds life_time
 	time_alive += delta
 	if time_alive > life_time:
 		queue_free()
 
 func _on_body_entered(body):
-	# Handle collision (destroy bullet on impact)
-	queue_free()
+	if body is CharacterBody2D:
+		if knockback_force > 0.0:
+			var dir = (body.global_position - global_position).normalized()
+			body.velocity += dir * knockback_force
+		queue_free()
+	else:
+		bounce_count += 1
+		if bounce_count > max_bounces:
+			queue_free()

@@ -16,6 +16,10 @@ var muzzle_position
 @onready var bulletTimer := $BulletTimer
 @export var shoot_cooldown := 0.5
 var can_shoot := true
+@export var bullet_count := 1
+@export var bullet_bounces := 0
+@export var knockback_force := 0.0
+@export var one_hit_mode := false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -60,6 +64,8 @@ var current_jump := 0
 var is_dashing := false
 var can_dash := true
 var dash_direction := 0
+var dash_trail_timer := 0.0
+const DASH_TRAIL_INTERVAL := 0.03
 
 @onready var dash_timer := $Timers/DashTimer
 @onready var dash_cooldown_timer := $Timers/DashCooldown
@@ -89,6 +95,10 @@ func _physics_process(delta: float) -> void:
 		die(delta)
 		if is_dashing:
 			velocity.x = dash_direction * dash_speed * delta
+			dash_trail_timer += delta
+			if dash_trail_timer >= DASH_TRAIL_INTERVAL:
+				dash_trail_timer = 0.0
+				spawn_ghost()
 		move_and_slide()
 
 func player_falling(delta: float):
@@ -149,15 +159,23 @@ func player_jump(delta: float):
 func p_shoot(delta: float):
 	if Input.is_action_just_pressed('shoot_%s' % playerID) and can_shoot:
 		bulletTimer.wait_time = shoot_cooldown
-		var direction = input_movement()
-		var bullet = p_bullet_scene.instantiate() as RigidBody2D
-		bullet.gravity_scale = gravity / 1000
-		bullet.add_to_group('Bullet_%s' % playerID)
-		bullet.position = $Muzzle.global_position
-		for child in bullet.get_children():
-			child.scale = Vector2.ONE * bullet_size
-		bullet.linear_velocity = Vector2(1,0)* sign(muzzle.position.x) * shoot_speed
-		get_tree().current_scene.add_child(bullet)
+		var dir_sign = sign(muzzle.position.x)
+		var spread_angle := deg_to_rad(10.0)
+		for i in bullet_count:
+			var b = p_bullet_scene.instantiate() as RigidBody2D
+			b.gravity_scale = gravity / 1000
+			b.max_bounces = bullet_bounces
+			b.knockback_force = knockback_force
+			b.add_to_group('Bullet_%s' % playerID)
+			b.position = $Muzzle.global_position
+			for child in b.get_children():
+				child.scale = Vector2.ONE * bullet_size
+			var angle_offset := 0.0
+			if bullet_count > 1:
+				angle_offset = lerp(-spread_angle, spread_angle, float(i) / (bullet_count - 1))
+			var base_dir := Vector2(dir_sign, 0)
+			b.linear_velocity = base_dir.rotated(angle_offset) * shoot_speed
+			get_tree().current_scene.add_child(b)
 		can_shoot = false
 		bulletTimer.start()
 
@@ -203,9 +221,13 @@ func block(delta:float):
 		block_duration -= delta
 		is_blocking = true
 		$Block.visible = true
+		$Block.offset = Vector2(randf_range(-3, 3), randf_range(-3, 3))
+		$Block.modulate.a = randf_range(0.25, 0.55)
+		$Block.scale = Vector2.ONE * 0.2 * randf_range(0.95, 1.05)
 	else:
 		is_blocking = false
 		$Block.visible = false
+		$Block.offset = Vector2.ZERO
 
 func die(delta:float):
 	dying.emit()
@@ -243,4 +265,17 @@ func _on_dash_timer_timeout() -> void:
 	dash_cooldown_timer.start()  # Start cooldown
 
 func _on_dash_cooldown_timeout() -> void:
-	can_dash = true  # Allow dashing again
+	can_dash = true
+
+func spawn_ghost() -> void:
+	var ghost := Sprite2D.new()
+	ghost.texture = animated_sprite_2d.sprite_frames.get_frame_texture(animated_sprite_2d.animation, animated_sprite_2d.frame)
+	ghost.global_position = animated_sprite_2d.global_position
+	ghost.scale = scale
+	ghost.flip_h = animated_sprite_2d.flip_h
+	ghost.modulate = Color(1, 1, 1, 0.4)
+	ghost.z_index = z_index - 1
+	get_tree().current_scene.add_child(ghost)
+	var tween := get_tree().create_tween()
+	tween.tween_property(ghost, "modulate:a", 0.0, 0.3)
+	tween.tween_callback(ghost.queue_free)

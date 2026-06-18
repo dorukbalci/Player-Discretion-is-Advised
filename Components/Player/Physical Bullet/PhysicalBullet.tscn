@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://slyflkkkmyg6"]
+[gd_scene load_steps=5 format=3 uid="uid://slyflkkkmyg6"]
 
 [ext_resource type="Script" path="res://Components/Player/Physical Bullet/physical_bullet.gd" id="1_mxlsi"]
 [ext_resource type="Texture2D" uid="uid://kp3nu6l2im4k" path="res://Components/Player/Bullet/shot.png" id="2_rh8a5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bounce"]
+bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j01h8"]
 size = Vector2(12, 4)
 
 [node name="PhysicalBullet" type="RigidBody2D" groups=["Bullet"]]
 collision_layer = 5
+contact_monitor = true
+max_contacts_reported = 4
+physics_material_override = SubResource("PhysicsMaterial_bounce")
 script = ExtResource("1_mxlsi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

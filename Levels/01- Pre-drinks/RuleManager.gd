@@ -10,6 +10,7 @@ var target_input_action : String
 var waiting_for_key := false
 
 var paused = false
+var one_hit_mode := false
 
 @export var mapArray: Array[PackedScene]
 var current_map = 0
@@ -46,6 +47,11 @@ func _on_start_round_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.damageable = true
+		if one_hit_mode:
+			player.max_health = 1
+			player.current_health = 1
+			player.healthbar.max_value = 1
+			player.healthbar.value = 1
 
 #END ROUND WHEN THERE'S NO PLAYER LEFT OF A TEAM
 func end_round(delta:float):
@@ -359,6 +365,45 @@ func _on_d_duration_slider_value_changed(value: float) -> void:
 		player.dash_duration = value / 50.0
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashDuration".text = 'Dash Duration: %s' % str(value/50.0)
 
+
+func _on_bullet_bounce_minus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		if player.bullet_bounces > 0:
+			player.bullet_bounces -= 1
+	if players.size() > 0:
+		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(players[0].bullet_bounces)
+
+func _on_bullet_bounce_plus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.bullet_bounces += 1
+	if players.size() > 0:
+		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(players[0].bullet_bounces)
+
+func _on_knockback_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.knockback_force = value
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackLabel'.text = 'Knockback: %s' % str(int(value))
+
+func _on_one_hit_toggled(toggled_on: bool) -> void:
+	one_hit_mode = toggled_on
+
+func _on_bullet_count_minus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		if player.bullet_count > 1:
+			player.bullet_count -= 1
+	if players.size() > 0:
+		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(players[0].bullet_count)
+
+func _on_bullet_count_plus_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.bullet_count += 1
+	if players.size() > 0:
+		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(players[0].bullet_count)
 
 func _on_d_cooldown_slider_value_changed(value: float) -> void:
 	var players = get_tree().get_nodes_in_group('Player')

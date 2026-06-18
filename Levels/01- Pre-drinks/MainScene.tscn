@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://7mlyoq0kgyfv" path="res://Components/Maps/map_3.tscn" id="8_kvc23"]
 [ext_resource type="Shader" uid="uid://dk7ym74viwbka" path="res://Levels/01- Pre-drinks/Dither.gdshader" id="9_8e6lk"]
 [ext_resource type="Texture2D" uid="uid://chbqtw366kjbj" path="res://Components/Maps/bgtile3.png" id="10_3ub7c"]
+[ext_resource type="Script" uid="uid://dg2qu0oka1jwc" path="res://Levels/01- Pre-drinks/house_rules.gd" id="11_hr"]
 
 [sub_resource type="Theme" id="Theme_0hh8x"]
 Button/fonts/font = null
@@ -82,29 +83,34 @@ offset_right = 1086.0
 offset_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("11_hr")
 
 [node name="InternalRules" type="Label" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=1590119507]
 layout_mode = 2
 text = "HOUSE RULES"
 horizontal_alignment = 1
 
-[node name="InternalRulesEdit" type="TextEdit" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=1977869642]
+[node name="RuleScroll" type="ScrollContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=468143991]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RuleList" type="VBoxContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES/RuleScroll" unique_id=2021627884]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+
+[node name="AddRow" type="HBoxContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=1352835838]
+layout_mode = 2
+
+[node name="RuleInput" type="LineEdit" parent="Canvas Layer/DeckParent/INTERNAL RULES/AddRow" unique_id=1868900588]
+layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 1
-text = "(Edit Me!)
-1. Try to Win.
-2.First to reach 9 points wins.
-3. Player who loses the round can change any rules.
-4. Keep eyes open.
-4. 
-5.
-6.
-"
-context_menu_enabled = false
-wrap_mode = 1
-scroll_smooth = true
+placeholder_text = "New rule..."
+
+[node name="AddButton" type="Button" parent="Canvas Layer/DeckParent/INTERNAL RULES/AddRow" unique_id=127639083]
+layout_mode = 2
+text = "+"
 
 [node name="Rule Panel" type="ScrollContainer" parent="Canvas Layer/DeckParent" unique_id=261099984]
 layout_mode = 0
@@ -306,6 +312,57 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Decrease Bullet Size"
 
+[node name="BulletCount" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules" unique_id=1245148587]
+visible = false
+layout_mode = 2
+
+[node name="BulletCountMinus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount" unique_id=2061169901]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="BulletCountLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount" unique_id=2069515337]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bullets: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BulletCountPlus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount" unique_id=956605135]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+
+[node name="BulletBounce" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules" unique_id=1100317134]
+layout_mode = 2
+
+[node name="BulletBounceMinus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce" unique_id=427669959]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="BulletBounceLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce" unique_id=1183132119]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bounces: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BulletBouncePlus" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce" unique_id=679181931]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+
+[node name="KnockbackLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules" unique_id=1918442919]
+layout_mode = 2
+text = "Knockback: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KnockbackSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules" unique_id=92264240]
+layout_mode = 2
+max_value = 2000.0
+
 [node name="Divider" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer" unique_id=2030961888]
 layout_mode = 2
 text = "------------------------------"
@@ -321,6 +378,10 @@ text = "------------------------------"
 [node name="LevelPhysics" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer" unique_id=1408447603]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="OneHitMode" type="CheckButton" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=1134628445]
+layout_mode = 2
+text = "One Hit Mode"
 
 [node name="JumpForce" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=1206886504]
 layout_mode = 2
@@ -796,6 +857,7 @@ z_index = -2
 position = Vector2(-448, -19)
 texture = ExtResource("10_3ub7c")
 
+[connection signal="pressed" from="Canvas Layer/DeckParent/INTERNAL RULES/AddRow/AddButton" to="Canvas Layer/DeckParent/INTERNAL RULES" method="_on_add_button_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Reset Rules" to="." method="_on_reset_rules_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/P1Score/MinusP1" to="." method="_on_minus_p_1_pressed"]
@@ -813,6 +875,12 @@ texture = ExtResource("10_3ub7c")
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletForceSlider" to="." method="_on_bullet_force_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/IncreaseBulletSize" to="." method="_on_increase_bullet_size_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/DecreaseBulletSize" to="." method="_on_decrease_bullet_size_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountMinus" to="." method="_on_bullet_count_minus_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountPlus" to="." method="_on_bullet_count_plus_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceMinus" to="." method="_on_bullet_bounce_minus_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBouncePlus" to="." method="_on_bullet_bounce_plus_pressed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackSlider" to="." method="_on_knockback_slider_value_changed"]
+[connection signal="toggled" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/OneHitMode" to="." method="_on_one_hit_toggled"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpForce/DecreaseJumpForce" to="." method="_on_decrease_jump_force_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpForce/IncreaseJumpForce2" to="." method="_on_increase_jump_force_2_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/JumpQMinus" to="." method="_on_jump_q_minus_pressed"]
