@@ -29,6 +29,8 @@ var can_shoot := true
 @export var speed : int = 400
 @export var max_hspeed := 300
 @export var slowdown_speed := 1000
+@export var friction := 1.0
+@export var reflect_on_block := false
 
 @export var jumpForce : int = 300
 @export var jump_hspeed := 1000
@@ -48,6 +50,7 @@ signal dying
 #blocking variables
 @export var block_duration := 1.0
 @export var block_cooldown := 1.0
+var block_remaining := 0.0
 var is_blocking = false
 var can_block = true
 
@@ -115,7 +118,7 @@ func player_run(delta: float):
 		if direction:
 			velocity.x = direction * speed * delta
 		else:
-			velocity.x = 0
+			velocity.x = move_toward(velocity.x, 0, friction * speed * delta)
 		if direction != 0:
 			current_state = playerState.Run
 			animated_sprite_2d.flip_h = false if direction > 0 else true
@@ -202,10 +205,22 @@ func input_movement():
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Bullet') && !body.is_in_group('Bullet_%s'%playerID):
-		body.queue_free()
-		if !is_blocking:
+		if is_blocking:
+			if reflect_on_block:
+				body.linear_velocity = -body.linear_velocity * 1.2
+				body.bounce_count = 0
+				for g in body.get_groups():
+					if g.begins_with('Bullet_'):
+						body.remove_from_group(g)
+				body.add_to_group('Bullet_%s' % playerID)
+			else:
+				body.queue_free()
+		else:
+			if knockback_force > 0.0:
+				var dir = (global_position - body.global_position).normalized()
+				velocity += dir * knockback_force
 			update_health(-20)
-			print('Bullet Entered')
+			body.queue_free()
 
 func update_health(change : int):
 	if damageable:
@@ -213,21 +228,22 @@ func update_health(change : int):
 		healthbar.value = current_health
 
 func block(delta:float):
-	if Input.is_action_just_pressed('block_%s' % playerID):
-		$Timers/BlockTimer.start(block_duration)
-	if Input.is_action_just_released('block_%s' % playerID):
-		$Timers/BlockTimer.stop()
-	if Input.is_action_pressed('block_%s' % playerID) and can_block:
-		block_duration -= delta
+	if Input.is_action_just_pressed('block_%s' % playerID) and can_block:
+		block_remaining = block_duration
 		is_blocking = true
-		$Block.visible = true
-		$Block.offset = Vector2(randf_range(-3, 3), randf_range(-3, 3))
-		$Block.modulate.a = randf_range(0.25, 0.55)
-		$Block.scale = Vector2.ONE * 0.2 * randf_range(0.95, 1.05)
-	else:
-		is_blocking = false
-		$Block.visible = false
-		$Block.offset = Vector2.ZERO
+	if is_blocking:
+		if Input.is_action_pressed('block_%s' % playerID) and block_remaining > 0:
+			block_remaining -= delta
+			$Block.visible = true
+			$Block.offset = Vector2(randf_range(-3, 3), randf_range(-3, 3))
+			$Block.modulate.a = randf_range(0.25, 0.55)
+			$Block.scale = Vector2.ONE * 0.2 * randf_range(0.95, 1.05)
+		else:
+			is_blocking = false
+			$Block.visible = false
+			$Block.offset = Vector2.ZERO
+			can_block = false
+			$Timers/BlockCooldown.start(block_cooldown)
 
 func die(delta:float):
 	dying.emit()

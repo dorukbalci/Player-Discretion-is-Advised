@@ -37,3 +37,30 @@ func _on_add_button_pressed() -> void:
 		return
 	_add_rule_block(text)
 	add_input.text = ""
+
+var random_rules := [
+	"Loser must play with one hand.",
+	"Winner picks the next map.",
+	"No blocking allowed this round.",
+	"Both players must jump constantly.",
+	"Loser gives the winner a compliment.",
+	"Play the next round in silence.",
+	"Switch seats after this round.",
+	"Loser has to close one eye next round.",
+	"Winner gets to change two rules instead of one.",
+	"Both players must narrate their actions out loud.",
+	"No dashing allowed.",
+	"Loser plays with inverted controls next round.",
+	"If you touch the ground, you lose 10 HP.",
+	"Rock-paper-scissors to decide who picks the rules.",
+	"Loser must stand up while playing next round.",
+	"Winner chooses a handicap for themselves.",
+	"No shooting for the first 5 seconds.",
+	"Both players must use the same controls.",
+	"Trash talk is mandatory.",
+	"The next round is played in slow motion (change speed to minimum).",
+]
+
+func _on_random_rule_pressed() -> void:
+	var rule = random_rules[randi() % random_rules.size()]
+	_add_rule_block(rule)

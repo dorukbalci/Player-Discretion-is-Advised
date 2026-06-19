@@ -11,6 +11,10 @@ var waiting_for_key := false
 
 var paused = false
 var one_hit_mode := false
+var round_timer_enabled := false
+var round_time := 30.0
+var round_time_remaining := 0.0
+var round_active := false
 
 @export var mapArray: Array[PackedScene]
 var current_map = 0
@@ -38,12 +42,20 @@ func count_control_nodes(node: Node) -> int:
 func _process(delta: float) -> void:
 	toggle_pause(delta)
 	end_round(delta)
+	update_round_timer(delta)
 
 
 #START ROUND
 func _on_start_round_pressed() -> void:
 	paused = false
+	round_active = true
 	$"Canvas Layer/DeckParent".visible = false
+	if round_timer_enabled:
+		round_time_remaining = round_time
+		$"Canvas Layer/RoundTimerLabel".visible = true
+		$"Canvas Layer/RoundTimerLabel".text = str(int(round_time_remaining))
+	else:
+		$"Canvas Layer/RoundTimerLabel".visible = false
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.damageable = true
@@ -410,3 +422,97 @@ func _on_d_cooldown_slider_value_changed(value: float) -> void:
 	for player in players:
 		player.dash_cooldown = value / 50.0
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashCooldown".text = 'Dash Cooldown: %s' % str(value/50.0)
+
+func _on_friction_slider_value_changed(value: float) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	var fric = value / 100.0
+	for player in players:
+		player.friction = fric
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionLabel'.text = 'Friction: %s' % str(snapped(fric, 0.01))
+
+func _on_reflect_on_block_toggled(toggled_on: bool) -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	for player in players:
+		player.reflect_on_block = toggled_on
+
+func _on_round_timer_toggled(toggled_on: bool) -> void:
+	round_timer_enabled = toggled_on
+
+func _on_round_time_slider_value_changed(value: float) -> void:
+	round_time = value
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeLabel'.text = 'Round Time: %ss' % str(int(value))
+
+func update_round_timer(delta: float) -> void:
+	if not round_active or not round_timer_enabled:
+		return
+	round_time_remaining -= delta
+	$"Canvas Layer/RoundTimerLabel".text = str(int(round_time_remaining) + 1)
+	if round_time_remaining <= 0.0:
+		round_active = false
+		$"Canvas Layer/RoundTimerLabel".visible = false
+		var p1s = get_tree().get_nodes_in_group('Player1')
+		var p2s = get_tree().get_nodes_in_group('Player2')
+		var p1_health := 0
+		var p2_health := 0
+		for p in p1s:
+			p1_health += p.current_health
+		for p in p2s:
+			p2_health += p.current_health
+		if p1_health > p2_health:
+			for p in p2s:
+				p.current_health = 0
+		elif p2_health > p1_health:
+			for p in p1s:
+				p.current_health = 0
+		else:
+			for p in p1s + p2s:
+				p.current_health = 0
+
+func _on_random_roulette_pressed() -> void:
+	var players = get_tree().get_nodes_in_group('Player')
+	var speed_val = randi_range(5000, 50000)
+	var gravity_val = randi_range(200, 5000)
+	var jump_force_val = randi_range(100, 800)
+	var jump_amount_val = randi_range(1, 5)
+	var bullet_force_val = randi_range(100, 8000)
+	var bullet_size_val = randf_range(0.2, 3.0)
+	var bullet_count_val = randi_range(1, 7)
+	var bullet_bounces_val = randi_range(0, 5)
+	var knockback_val = randf_range(0, 2000)
+	var friction_val = randf_range(0.0, 1.0)
+	var dash_speed_val = randi_range(10000, 200000)
+	var dash_dur_val = randf_range(0.05, 0.5)
+	var shoot_cd_val = randf_range(0.0, 2.0)
+	var reflect_val = randi_range(0, 1) == 1
+	var one_hit_val = randi_range(0, 4) == 0
+
+	for player in players:
+		player.speed = speed_val
+		player.max_hspeed = speed_val
+		player.gravity = gravity_val
+		player.jumpForce = jump_force_val
+		player.jump_amount = jump_amount_val
+		player.shoot_speed = bullet_force_val
+		player.bullet_size = bullet_size_val
+		player.bullet_count = bullet_count_val
+		player.bullet_bounces = bullet_bounces_val
+		player.knockback_force = knockback_val
+		player.friction = friction_val
+		player.dash_speed = dash_speed_val
+		player.dash_duration = dash_dur_val
+		player.shoot_cooldown = shoot_cd_val
+		player.reflect_on_block = reflect_val
+
+	one_hit_mode = one_hit_val
+
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SpeedSlider'.value = speed_val
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider'.value = gravity_val
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount: %s' % str(jump_amount_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletForceSlider'.value = bullet_force_val
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(bullet_count_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(bullet_bounces_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackSlider'.value = knockback_val
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionLabel'.text = 'Friction: %s' % str(snapped(friction_val, 0.01))
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionSlider'.value = friction_val * 100
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/ReflectOnBlock'.button_pressed = reflect_val
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/OneHitMode'.button_pressed = one_hit_val

@@ -21,11 +21,7 @@ func _physics_process(delta: float):
 
 func _on_body_entered(body):
 	if body is CharacterBody2D:
-		if knockback_force > 0.0:
-			var dir = (body.global_position - global_position).normalized()
-			body.velocity += dir * knockback_force
+		return
+	bounce_count += 1
+	if bounce_count > max_bounces:
 		queue_free()
-	else:
-		bounce_count += 1
-		if bounce_count > max_bounces:
-			queue_free()

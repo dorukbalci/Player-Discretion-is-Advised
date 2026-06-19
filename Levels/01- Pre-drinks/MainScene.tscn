@@ -75,42 +75,49 @@ offset_right = 705.0
 offset_bottom = 370.0
 mouse_filter = 1
 
-[node name="INTERNAL RULES" type="VBoxContainer" parent="Canvas Layer/DeckParent" unique_id=1921796997]
+[node name="PanelContainer" type="PanelContainer" parent="Canvas Layer/DeckParent" unique_id=743959872]
 layout_mode = 0
-offset_left = 717.0
-offset_top = 86.0
-offset_right = 1086.0
-offset_bottom = 366.0
+offset_left = 726.0
+offset_top = 92.0
+offset_right = 1087.0
+offset_bottom = 367.0
+
+[node name="INTERNAL RULES" type="VBoxContainer" parent="Canvas Layer/DeckParent/PanelContainer" unique_id=1921796997]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("11_hr")
 
-[node name="InternalRules" type="Label" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=1590119507]
+[node name="InternalRules" type="Label" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" unique_id=1590119507]
 layout_mode = 2
 text = "HOUSE RULES"
 horizontal_alignment = 1
 
-[node name="RuleScroll" type="ScrollContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=468143991]
+[node name="RuleScroll" type="ScrollContainer" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" unique_id=468143991]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="RuleList" type="VBoxContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES/RuleScroll" unique_id=2021627884]
+[node name="RuleList" type="VBoxContainer" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES/RuleScroll" unique_id=2021627884]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddRow" type="HBoxContainer" parent="Canvas Layer/DeckParent/INTERNAL RULES" unique_id=1352835838]
+[node name="AddRow" type="HBoxContainer" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" unique_id=1352835838]
 layout_mode = 2
 
-[node name="RuleInput" type="LineEdit" parent="Canvas Layer/DeckParent/INTERNAL RULES/AddRow" unique_id=1868900588]
+[node name="RuleInput" type="LineEdit" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES/AddRow" unique_id=1868900588]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 placeholder_text = "New rule..."
 
-[node name="AddButton" type="Button" parent="Canvas Layer/DeckParent/INTERNAL RULES/AddRow" unique_id=127639083]
+[node name="AddButton" type="Button" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES/AddRow" unique_id=127639083]
 layout_mode = 2
 text = "+"
+
+[node name="RandomRuleButton" type="Button" parent="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" unique_id=756964313]
+layout_mode = 2
+text = "Random Rule"
 
 [node name="Rule Panel" type="ScrollContainer" parent="Canvas Layer/DeckParent" unique_id=261099984]
 layout_mode = 0
@@ -144,6 +151,26 @@ size_flags_vertical = 3
 tooltip_text = "Resets the Rules!"
 text = "Reset Rules
 "
+
+[node name="RandomRoulette" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=696081963]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Random Roulette"
+
+[node name="RoundTimer" type="CheckButton" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=1594895875]
+layout_mode = 2
+text = "Round Timer"
+
+[node name="RoundTimeLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=436778951]
+layout_mode = 2
+text = "Round Time: 30s"
+horizontal_alignment = 1
+
+[node name="RoundTimeSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=1063298480]
+layout_mode = 2
+min_value = 5.0
+max_value = 120.0
+value = 30.0
 
 [node name="P1Score" type="HBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=2087610913]
 layout_mode = 2
@@ -442,6 +469,7 @@ vertical_alignment = 1
 [node name="BlockDurationSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=1655158818]
 layout_mode = 2
 max_value = 50.0
+value = 10.0
 
 [node name="BlockCoolDownLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=107821810]
 layout_mode = 2
@@ -452,6 +480,21 @@ vertical_alignment = 1
 [node name="BlockCoolDownSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=1050567193]
 layout_mode = 2
 max_value = 50.0
+value = 10.0
+
+[node name="FrictionLabel" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=724319023]
+layout_mode = 2
+text = "Friction: 1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FrictionSlider" type="HSlider" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=322082835]
+layout_mode = 2
+value = 100.0
+
+[node name="ReflectOnBlock" type="CheckButton" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics" unique_id=2136919295]
+layout_mode = 2
+text = "Reflect on Block"
 
 [node name="P1 Input" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer" unique_id=1301741139]
 layout_mode = 2
@@ -739,6 +782,16 @@ layout_mode = 2
 [node name="VBoxContainer2" type="VBoxContainer" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer" unique_id=1210878073]
 layout_mode = 2
 
+[node name="RoundTimerLabel" type="Label" parent="Canvas Layer" unique_id=943762734]
+visible = false
+offset_left = 480.0
+offset_top = 5.0
+offset_right = 600.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 24
+text = "30"
+horizontal_alignment = 1
+
 [node name="Pause Text" type="Label" parent="Canvas Layer" unique_id=113781299]
 visible = false
 offset_left = 477.0
@@ -857,9 +910,13 @@ z_index = -2
 position = Vector2(-448, -19)
 texture = ExtResource("10_3ub7c")
 
-[connection signal="pressed" from="Canvas Layer/DeckParent/INTERNAL RULES/AddRow/AddButton" to="Canvas Layer/DeckParent/INTERNAL RULES" method="_on_add_button_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES/AddRow/AddButton" to="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" method="_on_add_button_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES/RandomRuleButton" to="Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES" method="_on_random_rule_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Reset Rules" to="." method="_on_reset_rules_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RandomRoulette" to="." method="_on_random_roulette_pressed"]
+[connection signal="toggled" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimer" to="." method="_on_round_timer_toggled"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeSlider" to="." method="_on_round_time_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/P1Score/MinusP1" to="." method="_on_minus_p_1_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/P1Score/PositiveP1" to="." method="_on_positive_p_1_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/P2Score/MinusP2" to="." method="_on_minus_p_2_pressed"]
@@ -888,6 +945,8 @@ texture = ExtResource("10_3ub7c")
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider" to="." method="_on_gravity_slider_value_changed"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationSlider" to="." method="_on_block_duration_slider_value_changed"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownSlider" to="." method="_on_block_cool_down_slider_value_changed"]
+[connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionSlider" to="." method="_on_friction_slider_value_changed"]
+[connection signal="toggled" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/ReflectOnBlock" to="." method="_on_reflect_on_block_toggled"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Up/P1Up" to="." method="_on_p_1_up_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Right/P1Right" to="." method="_on_p_1_right_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/P1Left" to="." method="_on_p_1_left_pressed"]
