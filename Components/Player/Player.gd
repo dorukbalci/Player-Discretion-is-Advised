@@ -19,8 +19,6 @@ var can_shoot := true
 @export var bullet_count := 1
 @export var bullet_bounces := 0
 @export var knockback_force := 0.0
-@export var one_hit_mode := false
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 #Probably should be a universal variable

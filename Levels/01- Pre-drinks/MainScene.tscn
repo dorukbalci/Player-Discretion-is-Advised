@@ -157,6 +157,35 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Random Roulette"
 
+[node name="SavePreset" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=10853789]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Save Preset"
+
+[node name="LoadPreset" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=544826988]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Load Preset"
+
+[node name="CopyCode" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=917814370]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Copy Code"
+
+[node name="PasteCode" type="Button" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=1314833957]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Paste Code"
+
+[node name="PresetStatus" type="Label" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=1636411505]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+
 [node name="RoundTimer" type="CheckButton" parent="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules" unique_id=1594895875]
 layout_mode = 2
 text = "Round Timer"
@@ -915,6 +944,10 @@ texture = ExtResource("10_3ub7c")
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/Reset Rules" to="." method="_on_reset_rules_pressed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RandomRoulette" to="." method="_on_random_roulette_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/SavePreset" to="." method="_on_save_preset_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/LoadPreset" to="." method="_on_load_preset_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/CopyCode" to="." method="_on_copy_code_pressed"]
+[connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/PasteCode" to="." method="_on_paste_code_pressed"]
 [connection signal="toggled" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimer" to="." method="_on_round_timer_toggled"]
 [connection signal="value_changed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeSlider" to="." method="_on_round_time_slider_value_changed"]
 [connection signal="pressed" from="Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/P1Score/MinusP1" to="." method="_on_minus_p_1_pressed"]

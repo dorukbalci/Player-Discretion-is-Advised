@@ -5,53 +5,69 @@ extends Node2D
 @onready var ogPlayer1 := $Players/Player1
 @onready var ogPlayer2 := $Players/Player2
 
-var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBullet.tscn') 
+var bullet_scene = preload('res://Components/Player/Physical Bullet/PhysicalBullet.tscn')
 var target_input_action : String
 var waiting_for_key := false
 
 var paused = false
-var one_hit_mode := false
-var round_timer_enabled := false
-var round_time := 30.0
 var round_time_remaining := 0.0
 var round_active := false
 
 @export var mapArray: Array[PackedScene]
-var current_map = 0
+
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.damageable = false
-	var root = self
-	var control_count = count_control_nodes(root)
-	print("Number of Control nodes in the scene: ", control_count)
-	#update_input_labels()
-
-#Count Amount of Control Nodes
-func count_control_nodes(node: Node) -> int:
-	var count = 0
-	# Check if the current node is a Control
-	if node is Control:
-		count += 1
-	# Recursively check all child nodes
-	for child in node.get_children():
-		count += count_control_nodes(child)
-	return count
+	GameState.apply_ruleset_to_all(get_tree())
+	sync_ui_to_ruleset()
 
 func _process(delta: float) -> void:
 	toggle_pause(delta)
 	end_round(delta)
 	update_round_timer(delta)
 
+func sync_ui_to_ruleset() -> void:
+	var r = GameState.ruleset
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SpeedSlider'.value = r.speed
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider'.value = r.gravity
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount: %s' % str(r.jump_amount)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletForceSlider'.value = r.shoot_speed
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletTimerSlider'.value = r.shoot_cooldown * 100
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(r.bullet_count)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(r.bullet_bounces)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackSlider'.value = r.knockback_force
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionLabel'.text = 'Friction: %s' % str(snapped(r.friction, 0.01))
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionSlider'.value = r.friction * 100
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/ReflectOnBlock'.button_pressed = r.reflect_on_block
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/OneHitMode'.button_pressed = r.one_hit_mode
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationLabel'.text = 'Block Duration: %s' % str(r.block_duration)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationSlider'.value = r.block_duration * 10.0
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownLabel'.text = 'Block Cooldown: %s' % str(r.block_cooldown)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownSlider'.value = r.block_cooldown * 10.0
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashSpeed'.text = 'Dash Speed: %s' % str(r.dash_speed / 1000)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DSpeedSlider'.value = r.dash_speed / 1000
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashDuration'.text = 'Dash Duration: %s' % str(r.dash_duration)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DDurationSlider'.value = r.dash_duration * 50.0
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashCooldown'.text = 'Dash Cooldown: %s' % str(r.dash_cooldown)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DCooldownSlider'.value = r.dash_cooldown * 50.0
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimer'.button_pressed = r.round_timer_enabled
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeLabel'.text = 'Round Time: %ss' % str(int(r.round_time))
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeSlider'.value = r.round_time
+
+func _update_rule(key: String, value) -> void:
+	GameState.ruleset[key] = value
+	GameState.apply_ruleset_to_all(get_tree())
 
 #START ROUND
 func _on_start_round_pressed() -> void:
 	paused = false
 	round_active = true
 	$"Canvas Layer/DeckParent".visible = false
-	if round_timer_enabled:
-		round_time_remaining = round_time
+	var r = GameState.ruleset
+	if r.round_timer_enabled:
+		round_time_remaining = r.round_time
 		$"Canvas Layer/RoundTimerLabel".visible = true
 		$"Canvas Layer/RoundTimerLabel".text = str(int(round_time_remaining))
 	else:
@@ -59,7 +75,7 @@ func _on_start_round_pressed() -> void:
 	var players = get_tree().get_nodes_in_group('Player')
 	for player in players:
 		player.damageable = true
-		if one_hit_mode:
+		if r.one_hit_mode:
 			player.max_health = 1
 			player.current_health = 1
 			player.healthbar.max_value = 1
@@ -67,8 +83,6 @@ func _on_start_round_pressed() -> void:
 
 #END ROUND WHEN THERE'S NO PLAYER LEFT OF A TEAM
 func end_round(delta:float):
-	#Check the Amount of players
-
 	var p1_amount = get_tree().get_node_count_in_group('Player1')
 	var p2_amount = get_tree().get_node_count_in_group('Player2')
 	if p1_amount == 0:
@@ -79,14 +93,13 @@ func end_round(delta:float):
 		GameState.p1score += 1
 		$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
 		$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
-	#Remove All Players
 	if p1_amount == 0 or p2_amount == 0:
 		var players = get_tree().get_nodes_in_group('Player')
 		for player in players:
 			player.queue_free()
 		_on_add_self_pressed()
 		$"Canvas Layer/DeckParent".visible = true
-		for player in players:
+		for player in get_tree().get_nodes_in_group('Player'):
 			player.damageable = false
 
 #PAUSE GAME
@@ -97,102 +110,78 @@ func toggle_pause(delta : float):
 			player.queue_free()
 		_on_add_self_pressed()
 		$"Canvas Layer/DeckParent".visible = true
-		for player in players:
+		for player in get_tree().get_nodes_in_group('Player'):
 			player.damageable = false
-		
 
 #ADD PLAYER
 func _on_add_self_pressed() -> void:
 	var newPlayer1 = player1Prefab.instantiate()
 	newPlayer1.position = $SpawnPoints/P1spawn.position
 	add_child(newPlayer1)
-	
+	GameState.apply_ruleset_to_player(newPlayer1)
+
 	var newPlayer2 = player2Prefab.instantiate()
 	newPlayer2.position = $SpawnPoints/P2spawn.position
 	add_child(newPlayer2)
+	GameState.apply_ruleset_to_player(newPlayer2)
 
 #CHANGE SPEED
 func _on_h_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.speed = int(value)
-		player.max_hspeed = int(value)
+	_update_rule("speed", int(value))
 
 #REMOVE PLAYER
 func _on_remove_player_pressed() -> void:
 	var player1s = get_tree().get_nodes_in_group('Player1')
 	var player2s = get_tree().get_nodes_in_group('Player2')
-	if len(player1s) >1:
+	if len(player1s) > 1:
 		player1s[-1].queue_free()
 		player2s[-1].queue_free()
 
 #RESET RULES
 func _on_reset_rules_pressed() -> void:
-	# Get the path of the current scene
+	GameState.reset_ruleset()
 	var current_scene_path = get_tree().current_scene.scene_file_path
-	
-	# Reload the scene using change_scene_to_file
 	get_tree().change_scene_to_file(current_scene_path)
 
 #INCREASE BULLET SIZE
 func _on_increase_bullet_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.bullet_size += .2
+	_update_rule("bullet_size", GameState.ruleset.bullet_size + 0.2)
 
 #DECREASE BULLET SIZE
 func _on_decrease_bullet_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.bullet_size -= .2
+	_update_rule("bullet_size", GameState.ruleset.bullet_size - 0.2)
 
 #CHANGE BULLET FORCE
 func _on_bullet_force_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.shoot_speed = value
+	_update_rule("shoot_speed", value)
 
 #DECREASE JUMP FORCE
 func _on_decrease_jump_force_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.jumpForce -= 50
+	_update_rule("jump_force", GameState.ruleset.jump_force - 50)
 
 #INCREASE JUMP FORCE
 func _on_increase_jump_force_2_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.jumpForce += 50
+	_update_rule("jump_force", GameState.ruleset.jump_force + 50)
 
 #Change Gravity
 func _on_gravity_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.gravity = value
+	_update_rule("gravity", value)
 
 #DECREASE HORIZONTAL SIZE
 func _on_decrease_horizontal_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.scale -= Vector2(0.1,0.0)
+	_update_rule("scale_x", GameState.ruleset.scale_x - 0.1)
 
 #INCREASE HORIZONTAL SIZE
 func _on_increase_horizontal_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.scale += Vector2(0.1,0.0)
+	_update_rule("scale_x", GameState.ruleset.scale_x + 0.1)
 
 #DECREASE VERTICAL
 func _on_decrease_vertical_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.scale -= Vector2(0.0,0.1)
+	_update_rule("scale_y", GameState.ruleset.scale_y - 0.1)
 
 #INCREASE VERTICAL
 func _on_increase_vertical_size_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.scale += Vector2(0.0,0.1)
+	_update_rule("scale_y", GameState.ruleset.scale_y + 0.1)
 
 #Listen for Input
 func _input(event: InputEvent):
@@ -202,20 +191,12 @@ func _input(event: InputEvent):
 #Bind the next pressed key to an input map action
 func bind_key_to_action(keycode: int):
 	waiting_for_key = false
-	# Create a new InputEventKey
 	var events = InputMap.action_get_events(target_input_action)
-	# Remove each event from the action
 	for event in events:
 		InputMap.action_erase_event(target_input_action, event)
-	print("Cleared all keys from action: ",target_input_action)
-	
-	
 	var key_event = InputEventKey.new()
 	key_event.keycode = keycode
-	
-	# Add the key event to the action
 	InputMap.action_add_event(target_input_action, key_event)
-	print("Assigned ", keycode, " to action: ", target_input_action)
 	update_input_labels()
 
 func update_input_labels():
@@ -225,7 +206,7 @@ func update_input_labels():
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Left/p1text4'.text = OS.get_keycode_string(InputMap.action_get_events("move_left_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Shoot/Label'.text = OS.get_keycode_string(InputMap.action_get_events("shoot_0")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P1 Input/Block/Label'.text = OS.get_keycode_string(InputMap.action_get_events("block_0")[0].keycode)
-	
+
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Up/p1text2".text = OS.get_keycode_string(InputMap.action_get_events("jump_1")[0].keycode)
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Dash/p1text3".text = OS.get_keycode_string(InputMap.action_get_events("dash_1")[0].keycode)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/P2 Input/Right/p1text5'.text = OS.get_keycode_string(InputMap.action_get_events("move_right_1")[0].keycode)
@@ -254,7 +235,6 @@ func _on_p_2_up_pressed() -> void:
 	target_input_action = 'jump_1'
 	waiting_for_key = true
 
-
 func _on_p_2_right_pressed() -> void:
 	target_input_action = 'move_right_1'
 	waiting_for_key = true
@@ -271,11 +251,9 @@ func _on_p_1_block_pressed() -> void:
 	target_input_action = 'block_0'
 	waiting_for_key = true
 
-
 func _on_p_2_block_pressed() -> void:
-	target_input_action = 'block_0'
+	target_input_action = 'block_1'
 	waiting_for_key = true
-
 
 func _on_p_1_dash_pressed() -> void:
 	target_input_action = 'dash_0'
@@ -286,164 +264,117 @@ func _on_p_2_dash_pressed() -> void:
 	waiting_for_key = true
 
 func _on_bullet_timer_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.shoot_cooldown = value /100
-
+	_update_rule("shoot_cooldown", value / 100.0)
 
 func _on_map_minus_pressed() -> void:
-	current_map -= 1
+	var r = GameState.ruleset
+	r.map -= 1
 	for child in $Maps.get_children():
 		child.queue_free()
-	var new_map_id = current_map % mapArray.size()
+	var new_map_id = r.map % mapArray.size()
 	var new_map = mapArray[new_map_id].instantiate()
 	$Maps.add_child(new_map)
-
 
 func _on_map_plus_pressed() -> void:
-	current_map += 1
+	var r = GameState.ruleset
+	r.map += 1
 	for child in $Maps.get_children():
 		child.queue_free()
-	var new_map_id = current_map % mapArray.size()
+	var new_map_id = r.map % mapArray.size()
 	var new_map = mapArray[new_map_id].instantiate()
 	$Maps.add_child(new_map)
-
 
 func _on_minus_p_1_pressed() -> void:
 	GameState.p1score -= 1
 	$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
 
-
 func _on_positive_p_1_pressed() -> void:
 	GameState.p1score += 1
 	$"Canvas Layer/Scores/Player1".text = ' P1 Score: ' + str(GameState.p1score)
-
 
 func _on_minus_p_2_pressed() -> void:
 	GameState.p2score -= 1
 	$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
 
-
 func _on_positive_p_2_pressed() -> void:
 	GameState.p2score += 1
 	$"Canvas Layer/Scores/Player2".text = ' P2 Score: ' + str(GameState.p2score)
 
-
 func _on_jump_q_minus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	var jump_am 
-	for player in players:
-		if player.jump_amount > 0:
-			player.jump_amount += -1
-			jump_am = player.jump_amount
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount:' + str(jump_am)
-
+	var new_val = max(0, GameState.ruleset.jump_amount - 1)
+	_update_rule("jump_amount", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount: %s' % str(new_val)
 
 func _on_jump_q_plus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	var jump_am 
-	for player in players:
-		player.jump_amount += 1
-		jump_am = player.jump_amount
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount:' + str(jump_am)
-
+	var new_val = GameState.ruleset.jump_amount + 1
+	_update_rule("jump_amount", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount: %s' % str(new_val)
 
 func _on_block_duration_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.block_duration = value / 10.0
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationLabel".text = 'Block Duration: %s' % str(value/10.0)
-
+	_update_rule("block_duration", value / 10.0)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockDurationLabel".text = 'Block Duration: %s' % str(value / 10.0)
 
 func _on_block_cool_down_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.block_cooldown = value / 10.0
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownLabel".text = 'Block Duration: %s' % str(value/10.0)
-
+	_update_rule("block_cooldown", value / 10.0)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/BlockCoolDownLabel".text = 'Block Cooldown: %s' % str(value / 10.0)
 
 #Dash Variables
-
 func _on_d_speed_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.dash_speed = value * 1000
+	_update_rule("dash_speed", int(value * 1000))
 	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashSpeed".text = 'Dash Speed: %s' % str(value)
 
-
 func _on_d_duration_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.dash_duration = value / 50.0
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashDuration".text = 'Dash Duration: %s' % str(value/50.0)
+	_update_rule("dash_duration", value / 50.0)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashDuration".text = 'Dash Duration: %s' % str(value / 50.0)
 
+func _on_d_cooldown_slider_value_changed(value: float) -> void:
+	_update_rule("dash_cooldown", value / 50.0)
+	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashCooldown".text = 'Dash Cooldown: %s' % str(value / 50.0)
 
 func _on_bullet_bounce_minus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		if player.bullet_bounces > 0:
-			player.bullet_bounces -= 1
-	if players.size() > 0:
-		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(players[0].bullet_bounces)
+	var new_val = max(0, GameState.ruleset.bullet_bounces - 1)
+	_update_rule("bullet_bounces", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(new_val)
 
 func _on_bullet_bounce_plus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.bullet_bounces += 1
-	if players.size() > 0:
-		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(players[0].bullet_bounces)
+	var new_val = GameState.ruleset.bullet_bounces + 1
+	_update_rule("bullet_bounces", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(new_val)
 
 func _on_knockback_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.knockback_force = value
+	_update_rule("knockback_force", value)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackLabel'.text = 'Knockback: %s' % str(int(value))
 
 func _on_one_hit_toggled(toggled_on: bool) -> void:
-	one_hit_mode = toggled_on
+	_update_rule("one_hit_mode", toggled_on)
 
 func _on_bullet_count_minus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		if player.bullet_count > 1:
-			player.bullet_count -= 1
-	if players.size() > 0:
-		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(players[0].bullet_count)
+	var new_val = max(1, GameState.ruleset.bullet_count - 1)
+	_update_rule("bullet_count", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(new_val)
 
 func _on_bullet_count_plus_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.bullet_count += 1
-	if players.size() > 0:
-		$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(players[0].bullet_count)
-
-func _on_d_cooldown_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.dash_cooldown = value / 50.0
-	$"Canvas Layer/DeckParent/Rule Panel/GridContainer/DashVars/DashCooldown".text = 'Dash Cooldown: %s' % str(value/50.0)
+	var new_val = GameState.ruleset.bullet_count + 1
+	_update_rule("bullet_count", new_val)
+	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(new_val)
 
 func _on_friction_slider_value_changed(value: float) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
 	var fric = value / 100.0
-	for player in players:
-		player.friction = fric
+	_update_rule("friction", fric)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionLabel'.text = 'Friction: %s' % str(snapped(fric, 0.01))
 
 func _on_reflect_on_block_toggled(toggled_on: bool) -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	for player in players:
-		player.reflect_on_block = toggled_on
+	_update_rule("reflect_on_block", toggled_on)
 
 func _on_round_timer_toggled(toggled_on: bool) -> void:
-	round_timer_enabled = toggled_on
+	_update_rule("round_timer_enabled", toggled_on)
 
 func _on_round_time_slider_value_changed(value: float) -> void:
-	round_time = value
+	_update_rule("round_time", value)
 	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/RoundTimeLabel'.text = 'Round Time: %ss' % str(int(value))
 
 func update_round_timer(delta: float) -> void:
-	if not round_active or not round_timer_enabled:
+	if not round_active or not GameState.ruleset.round_timer_enabled:
 		return
 	round_time_remaining -= delta
 	$"Canvas Layer/RoundTimerLabel".text = str(int(round_time_remaining) + 1)
@@ -469,50 +400,107 @@ func update_round_timer(delta: float) -> void:
 				p.current_health = 0
 
 func _on_random_roulette_pressed() -> void:
-	var players = get_tree().get_nodes_in_group('Player')
-	var speed_val = randi_range(5000, 50000)
-	var gravity_val = randi_range(200, 5000)
-	var jump_force_val = randi_range(100, 800)
-	var jump_amount_val = randi_range(1, 5)
-	var bullet_force_val = randi_range(100, 8000)
-	var bullet_size_val = randf_range(0.2, 3.0)
-	var bullet_count_val = randi_range(1, 7)
-	var bullet_bounces_val = randi_range(0, 5)
-	var knockback_val = randf_range(0, 2000)
-	var friction_val = randf_range(0.0, 1.0)
-	var dash_speed_val = randi_range(10000, 200000)
-	var dash_dur_val = randf_range(0.05, 0.5)
-	var shoot_cd_val = randf_range(0.0, 2.0)
-	var reflect_val = randi_range(0, 1) == 1
-	var one_hit_val = randi_range(0, 4) == 0
+	var r = GameState.ruleset
+	r.speed = randi_range(5000, 50000)
+	r.gravity = randi_range(200, 5000)
+	r.jump_force = randi_range(100, 800)
+	r.jump_amount = randi_range(1, 5)
+	r.shoot_speed = randi_range(100, 8000)
+	r.bullet_size = randf_range(0.2, 3.0)
+	r.bullet_count = randi_range(1, 7)
+	r.bullet_bounces = randi_range(0, 5)
+	r.knockback_force = randf_range(0, 2000)
+	r.friction = randf_range(0.0, 1.0)
+	r.dash_speed = randi_range(10000, 200000)
+	r.dash_duration = randf_range(0.05, 0.5)
+	r.shoot_cooldown = randf_range(0.0, 2.0)
+	r.reflect_on_block = randi_range(0, 1) == 1
+	r.one_hit_mode = randi_range(0, 4) == 0
 
-	for player in players:
-		player.speed = speed_val
-		player.max_hspeed = speed_val
-		player.gravity = gravity_val
-		player.jumpForce = jump_force_val
-		player.jump_amount = jump_amount_val
-		player.shoot_speed = bullet_force_val
-		player.bullet_size = bullet_size_val
-		player.bullet_count = bullet_count_val
-		player.bullet_bounces = bullet_bounces_val
-		player.knockback_force = knockback_val
-		player.friction = friction_val
-		player.dash_speed = dash_speed_val
-		player.dash_duration = dash_dur_val
-		player.shoot_cooldown = shoot_cd_val
-		player.reflect_on_block = reflect_val
+	GameState.apply_ruleset_to_all(get_tree())
+	sync_ui_to_ruleset()
 
-	one_hit_mode = one_hit_val
+func _set_status(msg: String) -> void:
+	var label = $'Canvas Layer/DeckParent/Rule Panel/GridContainer/BasicRules/PresetStatus'
+	label.text = msg
+	get_tree().create_timer(3.0).timeout.connect(func(): label.text = "")
 
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/PlayerRules/SpeedSlider'.value = speed_val
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/Gravity Slider'.value = gravity_val
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/JumpAmount/Label'.text = 'Jump Amount: %s' % str(jump_amount_val)
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletForceSlider'.value = bullet_force_val
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletCount/BulletCountLabel'.text = 'Bullets: %s' % str(bullet_count_val)
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/BulletBounce/BulletBounceLabel'.text = 'Bounces: %s' % str(bullet_bounces_val)
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/BulletRules/KnockbackSlider'.value = knockback_val
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionLabel'.text = 'Friction: %s' % str(snapped(friction_val, 0.01))
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/FrictionSlider'.value = friction_val * 100
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/ReflectOnBlock'.button_pressed = reflect_val
-	$'Canvas Layer/DeckParent/Rule Panel/GridContainer/LevelPhysics/OneHitMode'.button_pressed = one_hit_val
+func _on_save_preset_pressed() -> void:
+	var house_rules_panel = $"Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES"
+	if house_rules_panel.has_method("_sync_to_gamestate"):
+		house_rules_panel._sync_to_gamestate()
+	DirAccess.make_dir_recursive_absolute("user://presets")
+	var timestamp = Time.get_datetime_string_from_system().replace(":", "-")
+	var path = "user://presets/preset_%s.json" % timestamp
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		file.store_string(GameState.ruleset_to_json())
+		file.close()
+		_set_status("Saved: " + path.get_file())
+	else:
+		_set_status("Save failed!")
+
+func _on_load_preset_pressed() -> void:
+	var dir = DirAccess.open("user://presets")
+	if not dir:
+		_set_status("No presets found")
+		return
+	var files: Array[String] = []
+	dir.list_dir_begin()
+	var fname = dir.get_next()
+	while fname != "":
+		if fname.ends_with(".json"):
+			files.append(fname)
+		fname = dir.get_next()
+	if files.is_empty():
+		_set_status("No presets found")
+		return
+	files.sort()
+	var latest = files[-1]
+	var file = FileAccess.open("user://presets/" + latest, FileAccess.READ)
+	if file:
+		var json_str = file.get_as_text()
+		file.close()
+		if GameState.ruleset_from_json(json_str):
+			GameState.apply_ruleset_to_all(get_tree())
+			sync_ui_to_ruleset()
+			_reload_house_rules()
+			_set_status("Loaded: " + latest)
+		else:
+			_set_status("Invalid preset file")
+	else:
+		_set_status("Could not read file")
+
+func _on_copy_code_pressed() -> void:
+	var house_rules_panel = $"Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES"
+	if house_rules_panel.has_method("_sync_to_gamestate"):
+		house_rules_panel._sync_to_gamestate()
+	var json_str = GameState.ruleset_to_json()
+	var code = Marshalls.utf8_to_base64(json_str)
+	DisplayServer.clipboard_set(code)
+	_set_status("Code copied to clipboard!")
+
+func _on_paste_code_pressed() -> void:
+	var code = DisplayServer.clipboard_get()
+	if code.is_empty():
+		_set_status("Clipboard is empty")
+		return
+	var json_str = Marshalls.base64_to_utf8(code)
+	if json_str.is_empty():
+		_set_status("Invalid code")
+		return
+	if GameState.ruleset_from_json(json_str):
+		GameState.apply_ruleset_to_all(get_tree())
+		sync_ui_to_ruleset()
+		_reload_house_rules()
+		_set_status("Ruleset imported!")
+	else:
+		_set_status("Invalid code")
+
+func _reload_house_rules() -> void:
+	var panel = $"Canvas Layer/DeckParent/PanelContainer/INTERNAL RULES"
+	var container = panel.get_node("RuleScroll/RuleList")
+	for child in container.get_children():
+		child.queue_free()
+	for rule_text in GameState.ruleset.house_rules:
+		panel._add_rule_block(rule_text)

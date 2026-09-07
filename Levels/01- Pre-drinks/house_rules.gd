@@ -1,17 +1,10 @@
 extends VBoxContainer
 
-var default_rules := [
-	"Try to Win.",
-	"First to reach 9 points wins.",
-	"Player who loses the round can change any rules.",
-	"Keep eyes open.",
-]
-
 @onready var rule_container: VBoxContainer = $RuleScroll/RuleList
 @onready var add_input: LineEdit = $AddRow/RuleInput
 
 func _ready() -> void:
-	for rule_text in default_rules:
+	for rule_text in GameState.ruleset.house_rules:
 		_add_rule_block(rule_text)
 
 func _add_rule_block(text: String) -> void:
@@ -26,10 +19,23 @@ func _add_rule_block(text: String) -> void:
 
 	var delete_btn := Button.new()
 	delete_btn.text = "X"
-	delete_btn.pressed.connect(row.queue_free)
+	delete_btn.pressed.connect(_remove_rule.bind(row))
 	row.add_child(delete_btn)
 
 	rule_container.add_child(row)
+
+func _remove_rule(row: HBoxContainer) -> void:
+	row.queue_free()
+	_sync_to_gamestate.call_deferred()
+
+func _sync_to_gamestate() -> void:
+	var rules: Array = []
+	for row in rule_container.get_children():
+		if row is HBoxContainer:
+			var label = row.get_child(0) as Label
+			if label:
+				rules.append(label.text.substr(2))
+	GameState.ruleset.house_rules = rules
 
 func _on_add_button_pressed() -> void:
 	var text := add_input.text.strip_edges()
@@ -37,6 +43,7 @@ func _on_add_button_pressed() -> void:
 		return
 	_add_rule_block(text)
 	add_input.text = ""
+	_sync_to_gamestate()
 
 var random_rules := [
 	"Loser must play with one hand.",
@@ -64,3 +71,4 @@ var random_rules := [
 func _on_random_rule_pressed() -> void:
 	var rule = random_rules[randi() % random_rules.size()]
 	_add_rule_block(rule)
+	_sync_to_gamestate()
